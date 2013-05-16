@@ -28,6 +28,13 @@ public class OnlineLibraryControlBean {
     private EntityManager entityManager;
     
     /*
+     * @param title the title of item
+     * @param author the author of the item
+     * @param format the format of the item
+     * @param publisher the publisher of the item
+     * @param yearPublished the year the item was published
+     * @param status the status of the item 
+     * 
      * Method to add item the database using entity object and the persistence 
      * framwork
      */
@@ -53,6 +60,16 @@ public class OnlineLibraryControlBean {
     }
     
  
+        /*
+         * Method to view the status of the item
+         * @param title the title of the book to search for
+         * @return LibraryItem
+         */
+        public LibraryItem findItem(String title)
+        {
+            LibraryItem temp = (LibraryItem) entityManager.createQuery("getItemByTitle").setParameter("1", title).getSingleResult();
+            return temp;
+        }
     
     
 
