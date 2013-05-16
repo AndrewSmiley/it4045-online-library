@@ -9,18 +9,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 /**
- *
+ * 
  * @author Andrew
  */
 @Entity
+@NamedQuery(name="getItemByTitle", query="select c from Library"+
+        " c where c.title = :1 ")
 public class LibraryItem implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
+
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    
+    //Create attributes 
     private Long id;
-
+    private String title;
+    private String publisher;
+    private String format;
+    private String yearPublished;
+    private String author;
+    private String status;
+    
+    
     public Long getId() {
         return id;
     }
@@ -52,6 +78,90 @@ public class LibraryItem implements Serializable {
     @Override
     public String toString() {
         return "Entities.LibraryItem[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the publisher
+     */
+    public String getPublisher() {
+        return publisher;
+    }
+
+    /**
+     * @param publisher the publisher to set
+     */
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    /**
+     * @return the format
+     */
+    public String getFormat() {
+        return format;
+    }
+
+    /**
+     * @param format the format to set
+     */
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    /**
+     * @return the yearPublished
+     */
+    public String getYearPublished() {
+        return yearPublished;
+    }
+
+    /**
+     * @param yearPublished the yearPublished to set
+     */
+    public void setYearPublished(String yearPublished) {
+        this.yearPublished = yearPublished;
+    }
+
+    /**
+     * @return the author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * @param author the author to set
+     */
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }
