@@ -40,10 +40,10 @@ public class LibraryItem implements Serializable {
     //Create attributes 
     private Long id;
     private String title;
-    private String publisher;
-    private String format;
-    private String yearPublished;
     private String author;
+    private String format;
+    private String publisher;
+    private String yearPublished;
     private String status;
     
     
