@@ -16,8 +16,8 @@ import javax.persistence.NamedQuery;
  * @author Andrew
  */
 @Entity
-@NamedQuery(name="getItemByTitle", query="select c from Library"+
-        " c where c.title = :1 ")
+@NamedQuery(name="getItemByTitle", query="select c from LibraryItem"+
+        " c where c.title = :title ")
 public class LibraryItem implements Serializable {
     private static long serialVersionUID = 1L;
 
