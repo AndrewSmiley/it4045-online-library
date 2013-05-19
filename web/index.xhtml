@@ -1,12 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">  
+      
     <h:head>
-        <title>Facelet Title</title>
+        <title>Online Library</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        Welcome to the online library toolbox
+        <h:form>
+            <h:outputLabel for="tile" rendered="true" value="Title: "/>
+            <h:inputText id="title" required="true" value="#{jSFLibraryManagerBean.title}"/>
+            <h:outputLabel for="author" rendered="true" value="Author: "/>
+            <h:inputText id="author" required="true" value="#{jSFLibraryManagerBean.author}"/>
+            <h:outputLabel for="publicationYear" rendered="true" value="Year Published: "/>
+            <h:inputText id="publicationYear" required="true" value="#{jSFLibraryManagerBean.publicationYear}"/>
+            <h:outputLabel for="media" rendered="true" value="Type of Media: "/>
+            <h:selectOneMenu id="media" required="true" value="#{jSFLibraryManagerBean.format}">
+            <f:selectItem itemLabel="Book" itemValue="Book"/>
+            <f:selectItem itemLabel="Audio" itemValue="Audio"/>
+            <f:selectItem itemLabel="Video" itemValue="Video"/>
+            </h:selectOneMenu>
+            <br/>
+            <h:commandButton value="Add Item" action="#{jSFLibraryManagerBean.createLibraryItem()}"/>
+        </h:form>
     </h:body>
+    
 </html>
 
