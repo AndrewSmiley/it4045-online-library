@@ -25,9 +25,19 @@
             <br/>
             <h:commandButton value="Add Item" action="#{jSFLibraryManagerBean.createLibraryItem()}"/>
             
-            <h:commandButton value="Search" onclick="window.location.replace('search.xhtml');"/>
+            
+            
+            
+            <h:inputText value="#{jSFLibraryManagerBean.title}"/>
+            
+            <h:commandButton value="Search" action="#{jSFLibraryManagerBean.findItem()}"/>
+            
+            
+            
             
         </h:form>
+        
+        
     </h:body>
     
 </html>

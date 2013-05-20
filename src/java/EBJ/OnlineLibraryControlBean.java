@@ -67,7 +67,7 @@ public class OnlineLibraryControlBean {
          */
         public LibraryItem findItem(String title)
         {
-            LibraryItem temp = (LibraryItem) entityManager.createQuery("getItemByTitle").setParameter("1", title).getSingleResult();
+            LibraryItem temp = (LibraryItem) entityManager.createQuery("getItemByTitle").setParameter("t", title).getSingleResult();
             return temp;
         }
     
