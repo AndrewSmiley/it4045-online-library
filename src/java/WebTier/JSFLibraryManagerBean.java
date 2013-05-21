@@ -21,14 +21,16 @@ public class JSFLibraryManagerBean {
     //create attributes
     private String title;
     private String author;
+    private String publisher;
     private String publicationYear;
     private String format;
+    private String status;
     private String searchTitle;
     private LibraryItem resultItem;
     
    
     @EJB
-    OnlineLibraryControlBean control;
+    private OnlineLibraryControlBean control;
 
     
     
@@ -41,10 +43,17 @@ public class JSFLibraryManagerBean {
     
         /*
          *Method to create a library item 
+         *    private Long id;
+    private String title;
+    private String author;
+    private String format;
+    private String publisher;
+    private String yearPublished;
+    private String status;
          */
         public void createLibraryItem()
         {
-            control.createLibraryItem(title, author, format, author, author, title);
+            getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
         }
         
         
@@ -53,7 +62,7 @@ public class JSFLibraryManagerBean {
          */
         public void findItem()
         {
-            setResultItem(control.findItem(title));
+            setResultItem(getControl().findItem(getTitle()));
         }
                 
         
@@ -141,5 +150,47 @@ public class JSFLibraryManagerBean {
      */
     public void setResultItem(LibraryItem resultItem) {
         this.resultItem = resultItem;
+    }
+
+    /**
+     * @return the publisher
+     */
+    public String getPublisher() {
+        return publisher;
+    }
+
+    /**
+     * @param publisher the publisher to set
+     */
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the control
+     */
+    public OnlineLibraryControlBean getControl() {
+        return control;
+    }
+
+    /**
+     * @param control the control to set
+     */
+    public void setControl(OnlineLibraryControlBean control) {
+        this.control = control;
     }
 }

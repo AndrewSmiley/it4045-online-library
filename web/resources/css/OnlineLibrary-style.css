@@ -1,0 +1,42 @@
+/* 
+    Document   : OnlineLibrary-style
+    Created on : May 21, 2013, 2:35:43 PM
+    Author     : pridemai
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+
+body{
+    color: #EDEDED;
+    
+}
+
+ label, p{
+    color: #151024
+    
+}
+
+#header{
+    background-color: #7ec0c0;
+    vertical-align: central;
+    
+    
+}
+
+#welcome{
+    font-family: serif;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    
+    
+        
+}
+
+

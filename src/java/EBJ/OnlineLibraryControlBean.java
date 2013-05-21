@@ -38,8 +38,8 @@ public class OnlineLibraryControlBean {
      * Method to add item the database using entity object and the persistence 
      * framwork
      */
-    public void createLibraryItem(String title, String author, String Format , String publisher, 
-            String yearPublished, String status)
+    public void createLibraryItem(String title, String author,  String publisher, 
+            String yearPublished,String Format , String status)
     {
      //create library item entity
         LibraryItem item = new LibraryItem();
@@ -67,7 +67,7 @@ public class OnlineLibraryControlBean {
          */
         public LibraryItem findItem(String title)
         {
-            LibraryItem temp = (LibraryItem) entityManager.createQuery("getItemByTitle").setParameter("t", title).getSingleResult();
+            LibraryItem temp = (LibraryItem) entityManager.createNamedQuery("getItemByTitle").setParameter("t", title).getSingleResult();
             return temp;
         }
     

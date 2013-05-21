@@ -6,38 +6,130 @@
       
     <h:head>
         <title>Online Library</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
     </h:head>
     <h:body>
-        Welcome to the Online Library Tool
+        
+        <div id="header">
+        <br/>
+            <p id="welcome">Welcome to the Online Library Tool</p>
+        <br/>
+        </div>
+        <br/>
         <h:form>
             <h:outputLabel for="tile" rendered="true" value="Title: "/>
-            <h:inputText id="title" required="true" value="#{jSFLibraryManagerBean.title}"/><br/><br/>
+            
+            <h:inputText id="title" required="true" 
+                         value="#{jSFLibraryManagerBean.title}"/><br/><br/>
+            
             <h:outputLabel for="author" rendered="true" value="Author: "/>
-            <h:inputText id="author" required="true" value="#{jSFLibraryManagerBean.author}"/><br/><br/>
+            
+            <h:inputText id="author" required="true" 
+                         value="#{jSFLibraryManagerBean.author}"/><br/><br/>
+            
+            <h:outputLabel for="publisher" rendered="true" value="Publisher: "/>
+            
+            <h:inputText id="publisher" required="true" value="#{jSFLibraryManagerBean.publisher}"/>
+                               
             <h:outputLabel for="publicationYear" rendered="true" value="Year Published: "/>
-            <h:inputText id="publicationYear" required="true" value="#{jSFLibraryManagerBean.publicationYear}"/><br/><br/>
+            
+            <h:inputText id="publicationYear" required="true" 
+                         value="#{jSFLibraryManagerBean.publicationYear}"/><br/><br/>
+                              
+            
             <h:outputLabel for="media" rendered="true" value="Type of Media: "/>
-            <h:selectOneMenu id="media" required="true" value="#{jSFLibraryManagerBean.format}">
+            <br/>   
+            <h:selectOneMenu id="media" required="true" 
+                             value="#{jSFLibraryManagerBean.format}">
+            
             <f:selectItem itemLabel="Book" itemValue="Book"/>
             <f:selectItem itemLabel="Audio" itemValue="Audio"/>
             <f:selectItem itemLabel="Video" itemValue="Video"/>
             </h:selectOneMenu>
             <br/>
+            
+            <h:outputLabel for="status" rendered="true" value="Status"/>
+           <br/>
+            <h:selectOneMenu id="status" required="true" value="#{jSFLibraryManagerBean.status}">
+            <f:selectItem itemLabel="Available" itemValue="Available"/>
+            <f:selectItem itemLabel="Checked-Out" itemValue="Checked-Out"/>
+            <f:selectItem itemLabel="Missing" itemValue="Missing"/>
+            </h:selectOneMenu>
+            
+                             
+            
+           <br/><br/>
             <h:commandButton value="Add Item" action="#{jSFLibraryManagerBean.createLibraryItem()}"/>
             
             
-            
-            
-            <h:inputText value="#{jSFLibraryManagerBean.title}"/>
-            
-            <h:commandButton value="Search" action="#{jSFLibraryManagerBean.findItem()}"/>
-            
-            
-            
-            
         </h:form>
+        <p> Search By title</p>
+        <h:form>
+            <h:inputText id="searchItem" 
+                         value="#{jSFLibraryManagerBean.searchTitle}"/>
+            <h:commandButton value="Search" 
+                             action="#{jSFLibraryManagerBean.findItem()}"/>
+            
+            
+            
+            
+        </h:form> 
+        <h:outputText value="Item Found" 
+                      rendered="#{jSFLibraryManagerBean.resultItem ne null}"/>
         
+        <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItem}"
+                      rendered="#{jSFLibraryManagerBean.resultItem ne null}">
         
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID"/>
+                </f:facet>
+                <h:outputText value="#{item.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Title"/>
+                </f:facet>
+                <h:outputText value="#{item.title}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Author"/>
+                </f:facet>
+                <h:outputText value="#{item.author}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Publisher"/>
+                </f:facet>
+                <h:outputText value="#{item.publisher}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Year Published"/>
+                </f:facet>
+                <h:outputText value="#{item.yearPublished}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Format"/>
+                </f:facet>
+                <h:outputText value="#{item.format}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Status"/>
+                </f:facet>
+                <h:outputText value="#{item.status}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Action"/>
+                </f:facet>
+                    
+             </h:column>
+        </h:dataTable>
+            
     </h:body>
     
 </html>
