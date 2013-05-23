@@ -62,7 +62,7 @@ public class JSFLibraryManagerBean {
          */
         public void findItem()
         {
-            setResultItem(getControl().findItem(getTitle()));
+            setResultItem(getControl().findItem(searchTitle));
         }
                 
         
