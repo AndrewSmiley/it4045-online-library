@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
@@ -16,9 +17,21 @@ import javax.persistence.NamedQuery;
  * @author Andrew
  */
 @Entity
+@NamedQueries({
+    
+    
 @NamedQuery(name="getItemByTitle", query="select c from LibraryItem "+
-        " c where c.title like :t ")
+        " c where c.title like :t "),
+
+@NamedQuery(name="checkIn", query="update LIBRARYITEM set STATUS = 'Available' where ID = :t ")
+        
+//@NamedQuery(name="checkout", query="update LIBRARYITEM set STATUS = 'Checked-Out' where ID = :t ")
+
+})
+
+
 public class LibraryItem implements Serializable {
+
     private static long serialVersionUID = 1L;
 
     /**

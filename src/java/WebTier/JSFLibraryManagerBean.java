@@ -62,9 +62,20 @@ public class JSFLibraryManagerBean {
          */
         public void findItem()
         {
+            //Trim the whitespace off of the String prior to executing the search
+            this.removeWhiteSpace();
             setResultItem(getControl().findItem(searchTitle));
         }
                 
+        
+        /*
+         * Method to pull any trailing whitespace from the 
+         * title which has been sumitted 
+         */
+        public void removeWhiteSpace()
+        {
+            this.searchTitle = this.searchTitle.trim();
+        }
         
 
 

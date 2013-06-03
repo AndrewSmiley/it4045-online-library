@@ -73,9 +73,13 @@
         <p> Search By title</p>
         <h:form>
             <h:inputText id="searchItem" 
-                         value="#{jSFLibraryManagerBean.searchTitle}" required="true"/>
+                         
+                         value="#{jSFLibraryManagerBean.searchTitle}" 
+                         
+                         
+                         required="true"  />
             <h:commandButton value="Search" 
-                             action="#{jSFLibraryManagerBean.findItem()}"/>
+                             action="#{jSFLibraryManagerBean.findItem}"/>
             
             
             
@@ -123,7 +127,7 @@
                 </f:facet>
                 <h:outputText value="#{item.format}"/>
             </h:column>
-             <h:column>
+            <h:column>
                 <f:facet name="header">
                     <h:outputText value="Status"/>
                 </f:facet>
@@ -132,8 +136,9 @@
              <h:column>
                 <f:facet name="header">
                     <h:outputText value="Action"/>
-                </f:facet>
                     
+                </f:facet>
+                 <h:commandButton/>
              </h:column>
         </h:dataTable>
             
