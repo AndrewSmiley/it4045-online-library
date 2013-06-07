@@ -56,6 +56,7 @@ public class OnlineLibraryControlBean {
         
         //Persist the Entity object to the DB
         entityManager.persist(item);
+      
         
     }
     
@@ -72,12 +73,22 @@ public class OnlineLibraryControlBean {
         }
     
     
-        public void checkIn(Long id)
+        public void ejbCheckIn(Long id)
         {
-                    entityManager.createNamedQuery("checkIn").setParameter("id", id).executeUpdate();
+            int checkedIn = entityManager.createNamedQuery("checkIn").setParameter("id", id).executeUpdate();
                 
         }
         
+        
+        /*
+         *@param id the id of the search result item we are looking for  
+         *Method to called the named query to update
+         * status to 'checked-out'
+         */
+        public void ejbCheckOut(Long id)
+        {
+            int checkedOut = entityManager.createNamedQuery("checkOut").setParameter("id", id).executeUpdate();
+        }
         
 
 }

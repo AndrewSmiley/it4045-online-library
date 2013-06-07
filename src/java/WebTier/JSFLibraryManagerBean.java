@@ -75,7 +75,17 @@ public class JSFLibraryManagerBean {
         public void checkIn()
         {
            
-            getControl().checkIn(this.resultItem.getId());
+            getControl().ejbCheckIn(this.resultItem.getId());
+           
+        }
+        
+        
+        /*
+         * Method to check-out an item
+         */
+        public void checkOut()
+        {
+            getControl().ejbCheckOut(this.resultItem.getId());
             
         }
         

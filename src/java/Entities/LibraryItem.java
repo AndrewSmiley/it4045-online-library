@@ -23,9 +23,9 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name="getItemByTitle", query="select c from LibraryItem "+
         " c where c.title like :t "),
 
-@NamedQuery(name="checkIn", query="update LibraryItem c set c.status = 'Available' where c.id = :id"),
+@NamedQuery(name="checkIn", query="update LibraryItem set status = 'Available' where id = :id"),
         
-@NamedQuery(name="checkout", query="update LibraryItem c set c.status = 'Checked-Out' where c.id = :id")
+@NamedQuery(name="checkOut", query="update LibraryItem set status = 'Checked-Out' where id = :id")
 
 })
 
