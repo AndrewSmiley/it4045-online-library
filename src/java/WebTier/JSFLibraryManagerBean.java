@@ -1,7 +1,6 @@
 /*
  * This bean manages the JSF Server forms and pages
  */
-
 package WebTier;
 
 import EBJ.OnlineLibraryControlBean;
@@ -18,7 +17,7 @@ import javax.swing.JOptionPane;
 @ManagedBean
 @SessionScoped
 public class JSFLibraryManagerBean {
-    
+
     //create attributes
     private String title;
     private String author;
@@ -28,78 +27,84 @@ public class JSFLibraryManagerBean {
     private String status;
     private String searchTitle;
     private LibraryItem resultItem;
-    
-   
+        //Default error value here
+    private String errorMessage = "";
     @EJB
     private OnlineLibraryControlBean control;
 
-    
-    
     /**
      * Creates a new instance of JSFLibraryManagerBean
      */
     public JSFLibraryManagerBean() {
-        
-}
-    
-        /*
-         *Method to create a library item 
-         *    private Long id;
-    private String title;
-    private String author;
-    private String format;
-    private String publisher;
-    private String yearPublished;
-    private String status;
-         */
-        public void createLibraryItem()
-        {
-            getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
-        }
-        
-        
-        /*
-         * Method to find item
-         */
-        public void findItem()
-        {
-            //Trim the whitespace off of the String prior to executing the search
-            this.removeWhiteSpace();
-            setResultItem(getControl().findItem(searchTitle));
-        }
-        
-        
-        /*
-         * Method to update the status of an item from "checked-out" to "available;
-         */
-        public void checkIn()
-        {
-           
-            getControl().ejbCheckIn(this.resultItem.getId());
-           
-        }
-        
-        
-        /*
-         * Method to check-out an item
-         */
-        public void checkOut()
-        {
-            getControl().ejbCheckOut(this.resultItem.getId());
-            
-        }
-        
-        
-        /*
-         * Method to pull any trailing whitespace from the 
-         * title which has been sumitted 
-         */
-        public void removeWhiteSpace()
-        {
-            this.searchTitle = this.searchTitle.trim();
-        }
-        
+    }
 
+    /*
+     *Method to create a library item 
+     *    private Long id;
+     private String title;
+     private String author;
+     private String format;
+     private String publisher;
+     private String yearPublished;
+     private String status;
+     */
+    public void createLibraryItem() {
+        getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
+    }
+
+    /*
+     * Method to find item
+     */
+    public void findItem() {
+        //Trim the whitespace off of the String prior to executing the search
+        this.removeWhiteSpace();
+        try {
+            this.setErrorMessage("");
+            setResultItem(getControl().findItem(searchTitle));
+        } catch (Exception ex) {
+            this.setErrorMessage("Error");
+
+
+        }
+    }
+
+    /*
+     * Method to update the status of an item from "checked-out" to "available;
+     */
+    public void checkIn() {
+
+        getControl().ejbCheckIn(this.resultItem.getId());
+
+    }
+
+    /*
+     * Method to check-out an item
+     */
+    public void checkOut() {
+        getControl().ejbCheckOut(this.resultItem.getId());
+
+    }
+
+    /*
+     * Method to pull any trailing whitespace from the 
+     * title which has been sumitted 
+     */
+    public void removeWhiteSpace() {
+        this.searchTitle = this.searchTitle.trim();
+    }
+
+    
+    /*
+     * Method to display error message if exception is thrown in the search portion of the page. 
+     */
+    public boolean displaySearchError() {
+        if (this.getErrorMessage().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
 
     /**
      * @return the title
@@ -225,5 +230,19 @@ public class JSFLibraryManagerBean {
      */
     public void setControl(OnlineLibraryControlBean control) {
         this.control = control;
+    }
+
+    /**
+     * @return the errorMessage
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @param errorMessage the errorMessage to set
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
