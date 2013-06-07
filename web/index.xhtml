@@ -87,7 +87,8 @@
         </h:form> 
         <h:outputText value="Item Found" 
                       rendered="#{jSFLibraryManagerBean.resultItem ne null}"/>
-        
+       
+        <h:form/>
         <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItem}"
                       rendered="#{jSFLibraryManagerBean.resultItem ne null}">
         
@@ -138,10 +139,12 @@
                     <h:outputText value="Action"/>
                     
                 </f:facet>
-                 <h:commandButton/>
+                 
              </h:column>
         </h:dataTable>
-            
+       <h:form>
+                 <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
+                 </h:form>
     </h:body>
     
 </html>

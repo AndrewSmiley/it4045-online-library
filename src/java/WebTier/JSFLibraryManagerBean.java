@@ -9,6 +9,7 @@ import Entities.LibraryItem;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,7 +67,18 @@ public class JSFLibraryManagerBean {
             this.removeWhiteSpace();
             setResultItem(getControl().findItem(searchTitle));
         }
-                
+        
+        
+        /*
+         * Method to update the status of an item from "checked-out" to "available;
+         */
+        public void checkIn()
+        {
+           
+            getControl().checkIn(this.resultItem.getId());
+            
+        }
+        
         
         /*
          * Method to pull any trailing whitespace from the 
