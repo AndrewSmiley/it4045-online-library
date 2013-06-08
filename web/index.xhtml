@@ -148,11 +148,8 @@
            <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}" rendered="#{jSFLibraryManagerBean.toggleResults()}"/>
            <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" rendered="#{jSFLibraryManagerBean.toggleResults()}" />
                  </h:form>
-        
-      
-         
           <h:form>
-              <h:commandLink action="#{downloadManagerBean.downLoad()}" value="Download"/>
+          <h:commandButton action="#{downloadManagerBean.downLoad()}" value="Download Log"/>
           </h:form>
     </h:body>
     

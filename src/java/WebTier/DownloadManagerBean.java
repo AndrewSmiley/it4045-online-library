@@ -9,6 +9,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -20,18 +21,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 @ManagedBean
 @RequestScoped
+
+
 public class DownloadManagerBean {
 
-    /**
+       private String filePath = "/Users/Smiley/dailylog.txt"; 
+       
+       /**
      * Creates a new instance of DownloadManagerBean
      */
     public DownloadManagerBean() {
         
     }
         private static final int DEFAULT_BUFFER_SIZE = 10240;  
-       
+      
         
-        private String filePath = "/Users/Smiley/Documents/Test.txt";  
+       
+      
+      
        public void downLoad() throws IOException {  
             FacesContext context = FacesContext.getCurrentInstance();  
             HttpServletResponse response = (HttpServletResponse) context  

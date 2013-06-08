@@ -5,6 +5,10 @@ package WebTier;
 
 import EBJ.OnlineLibraryControlBean;
 import Entities.LibraryItem;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -50,6 +54,8 @@ public class JSFLibraryManagerBean {
      */
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
+        this.logActivity(getTitle(), getFormat(), getStatus());
+        
     }
 
     /*
@@ -68,6 +74,33 @@ public class JSFLibraryManagerBean {
         }
     }
 
+    public void logActivity(String title, String format, String status)
+    {
+        
+		try {
+ 
+			String content = "Item \""+title+"\" added; status set to "+status;
+ 
+			File file = new File("/Users/Smiley/dailylog.txt");
+ 
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+ 
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+ 
+			System.out.println("Done");
+ 
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+    }
+    
     /*
      * Method to update the status of an item from "checked-out" to "available;
      */
