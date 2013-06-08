@@ -85,12 +85,13 @@
             
             
         </h:form> 
+        
         <h:outputText value="Item Found" 
-                      rendered="#{jSFLibraryManagerBean.resultItem ne null}"/>
+                      rendered="#{jSFLibraryManagerBean.toggleResults()}"/>
        
         <h:form/>
         <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItem}"
-                      rendered="#{jSFLibraryManagerBean.resultItem ne null}">
+                     rendered="#{jSFLibraryManagerBean.toggleResults()}">
         
             <h:column>
                 <f:facet name="header">
@@ -142,14 +143,17 @@
                  
              </h:column>
         </h:dataTable>
+          <h:outputText rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
        <h:form>
-                 <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
-                 <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" />
+           <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}" rendered="#{jSFLibraryManagerBean.toggleResults()}"/>
+           <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" rendered="#{jSFLibraryManagerBean.toggleResults()}" />
                  </h:form>
         
-        <h:outputText rendered="#{jSFLibraryManagerBean.displayError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
+      
          
-     
+          <h:form>
+              <h:commandLink action="#{downloadManagerBean.downLoad()}" value="Download"/>
+          </h:form>
     </h:body>
     
 </html>

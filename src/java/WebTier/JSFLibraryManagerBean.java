@@ -62,7 +62,7 @@ public class JSFLibraryManagerBean {
             this.setErrorMessage("");
             setResultItem(getControl().findItem(searchTitle));
         } catch (Exception ex) {
-            this.setErrorMessage("Error");
+            this.setErrorMessage("Error: Item Not Found, Please Check Your Search and Try Again");
 
 
         }
@@ -105,6 +105,19 @@ public class JSFLibraryManagerBean {
         }
     }
     
+    
+    public boolean toggleResults()
+    {
+        if(this.getErrorMessage().isEmpty())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+            
+    }
 
     /**
      * @return the title
