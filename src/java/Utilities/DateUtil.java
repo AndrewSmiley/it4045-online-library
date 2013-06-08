@@ -14,15 +14,27 @@ import java.util.Date;
  */
 public class DateUtil {
     private String strDate;
-    private Date date;
-
     
-    public String createDate()
+    private String time;
+
+   /*
+    * Method to get the current date in format yyyy-mm-dd
+    */
+    public String getTodaysDate()
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        date = new Date();
-        strDate = date.toString();
-        return strDate;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        
+        this.setStrDate(dateFormat.format(date));
+        return getStrDate();
+    }
+    
+    public String getCurrentTime()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        this.setTime(dateFormat.format(date));
+        return getTime();
     }
     
     
@@ -41,19 +53,19 @@ public class DateUtil {
     }
 
     /**
-     * @return the date
+     * @return the time
      */
-    public Date getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
     /**
-     * @param date the date to set
+     * @param time the time to set
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
-    
+
     
     
 }

@@ -4,6 +4,7 @@
  */
 package WebTier;
 
+import Utilities.DateUtil;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -24,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class DownloadManagerBean {
-
-       private String filePath = "/Users/Smiley/dailylog.txt"; 
+    private String filePath;
+       
        
        /**
      * Creates a new instance of DownloadManagerBean
@@ -35,15 +36,26 @@ public class DownloadManagerBean {
     }
         private static final int DEFAULT_BUFFER_SIZE = 10240;  
       
-        
+    
        
       
       
        public void downLoad() throws IOException {  
+           
+           DateUtil dateUtil = new DateUtil();
+           
+           /**********************
+            * Update this portion to 
+            * allow the server to know where the dailylog is located
+            * point it to the absolute location of the file
+            * ********************
+            */
+           this.setFilePath("/Users/Smiley/dailylog_"+dateUtil.getTodaysDate()+".txt");
+           
             FacesContext context = FacesContext.getCurrentInstance();  
             HttpServletResponse response = (HttpServletResponse) context  
                       .getExternalContext().getResponse();  
-            File file = new File(filePath);  
+            File file = new File(getFilePath());  
             if (!file.exists()) {  
                  response.sendError(HttpServletResponse.SC_NOT_FOUND);  
                  return;  
@@ -72,5 +84,19 @@ public class DownloadManagerBean {
             }  
             context.responseComplete();  
       }  
+
+    /**
+     * @return the filePath
+     */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    /**
+     * @param filePath the filePath to set
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
  }  
     

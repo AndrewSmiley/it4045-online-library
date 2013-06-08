@@ -5,6 +5,7 @@ package WebTier;
 
 import EBJ.OnlineLibraryControlBean;
 import Entities.LibraryItem;
+import Utilities.FileWriterUtil;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -33,8 +34,10 @@ public class JSFLibraryManagerBean {
     private LibraryItem resultItem;
         //Default error value here
     private String errorMessage = "";
+    private FileWriterUtil fileWriter = new FileWriterUtil(); 
     @EJB
     private OnlineLibraryControlBean control;
+    
 
     /**
      * Creates a new instance of JSFLibraryManagerBean
@@ -54,7 +57,7 @@ public class JSFLibraryManagerBean {
      */
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
-        this.logActivity(getTitle(), getFormat(), getStatus());
+        fileWriter.logItemAdded(getTitle(), getFormat(), getStatus());
         
     }
 
@@ -74,39 +77,14 @@ public class JSFLibraryManagerBean {
         }
     }
 
-    public void logActivity(String title, String format, String status)
-    {
-        
-		try {
- 
-			String content = "Item \""+title+"\" added; status set to "+status;
- 
-			File file = new File("/Users/Smiley/dailylog.txt");
- 
-			// if file doesnt exists, then create it
-			if (!file.exists()) {
-				file.createNewFile();
-			}
- 
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(content);
-			bw.close();
- 
-			System.out.println("Done");
- 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-    }
-    
+   
     /*
      * Method to update the status of an item from "checked-out" to "available;
      */
     public void checkIn() {
 
         getControl().ejbCheckIn(this.resultItem.getId());
+        fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Available");
 
     }
 
@@ -115,7 +93,7 @@ public class JSFLibraryManagerBean {
      */
     public void checkOut() {
         getControl().ejbCheckOut(this.resultItem.getId());
-
+        fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Checked-Out");
     }
 
     /*
