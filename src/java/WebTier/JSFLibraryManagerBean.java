@@ -85,6 +85,7 @@ public class JSFLibraryManagerBean {
 
         getControl().ejbCheckIn(this.resultItem.getId());
         fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Available");
+        
 
     }
 

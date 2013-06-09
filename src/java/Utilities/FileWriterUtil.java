@@ -18,7 +18,12 @@ public class FileWriterUtil {
     
     
     
-    
+    /*
+     * Method to log an item being added to the daily log
+     * @param title the title of the item added
+     * @param format the format of the item
+     * @param status the status of the item being added
+     */
     public void logItemAdded(String title, String format, String status)
     {
         
@@ -39,7 +44,7 @@ public class FileWriterUtil {
 			if (!file.exists()) {
 				file.createNewFile();
 			}
- 
+                        
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
@@ -56,7 +61,12 @@ public class FileWriterUtil {
     
 
 
-
+/*
+     * Method to log the the changes status of item(s)
+     * @param title the title of the item 
+     * @param format the format of the item
+     * @param status the status of the item being
+     */
 public void logStatusChanged(String title, String format, String status)
 {
 try {

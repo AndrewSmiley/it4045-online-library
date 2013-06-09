@@ -39,7 +39,9 @@ public class DownloadManagerBean {
     
        
       
-      
+      /*
+       * Method to download the daily log to your local machine
+       */
        public void downLoad() throws IOException {  
            
            DateUtil dateUtil = new DateUtil();

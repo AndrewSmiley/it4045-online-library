@@ -13,31 +13,32 @@ import java.util.Date;
  * @author Smiley
  */
 public class DateUtil {
+
     private String strDate;
-    
     private String time;
 
-   /*
-    * Method to get the current date in format yyyy-mm-dd
-    */
-    public String getTodaysDate()
-    {
+    /*
+     * Method to get the current date in format yyyy-mm-dd
+     */
+    public String getTodaysDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        
+
         this.setStrDate(dateFormat.format(date));
         return getStrDate();
     }
-    
-    public String getCurrentTime()
-    {
+
+    /*
+     * Method to get the current time 
+     * in the format HH:MM:SS
+     */
+    public String getCurrentTime() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date();
         this.setTime(dateFormat.format(date));
         return getTime();
     }
-    
-    
+
     /**
      * @return the strDate
      */
@@ -65,7 +66,4 @@ public class DateUtil {
     public void setTime(String time) {
         this.time = time;
     }
-
-    
-    
 }

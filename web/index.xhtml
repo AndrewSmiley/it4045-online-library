@@ -143,7 +143,7 @@
                  
              </h:column>
         </h:dataTable>
-          <h:outputText rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
+        <h:outputText id="searchError" rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
        <h:form>
            <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}" rendered="#{jSFLibraryManagerBean.toggleResults()}"/>
            <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" rendered="#{jSFLibraryManagerBean.toggleResults()}" />
