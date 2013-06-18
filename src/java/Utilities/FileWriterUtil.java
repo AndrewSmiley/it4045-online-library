@@ -39,7 +39,7 @@ public class FileWriterUtil {
                          * on your own local machine
                          */
 			File file = new File("/Users/Smiley/dailylog_"+dateUtil.getTodaysDate()+".txt");
- 
+                        
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
 				file.createNewFile();
@@ -48,6 +48,7 @@ public class FileWriterUtil {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
+                        
                         bw.newLine();
 			bw.close();
  
