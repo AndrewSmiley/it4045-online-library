@@ -3,6 +3,7 @@
  */
 package WebTier;
 
+import EBJ.ArchiverControlBean;
 import EBJ.OnlineLibraryControlBean;
 import Entities.LibraryItem;
 import Utilities.FileWriterUtil;
@@ -37,7 +38,8 @@ public class JSFLibraryManagerBean {
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
     @EJB
     private OnlineLibraryControlBean control;
-    
+    @EJB
+    private ArchiverControlBean archiveControl;
 
     /**
      * Creates a new instance of JSFLibraryManagerBean
@@ -58,6 +60,7 @@ public class JSFLibraryManagerBean {
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
         fileWriter.logItemAdded(getTitle(), getFormat(), getStatus());
+      //  archiveControl.logNewActivity("Created item: "+getTitle(), format);
         
     }
 
@@ -94,6 +97,7 @@ public class JSFLibraryManagerBean {
      */
     public void checkOut() {
         getControl().ejbCheckOut(this.resultItem.getId());
+       // getArchiveControl().logNewActivity(, "10/05/2010");
         fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Checked-Out");
     }
 
@@ -270,4 +274,20 @@ public class JSFLibraryManagerBean {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
+    /**
+     * @return the archiveControl
+     */
+    public ArchiverControlBean getArchiveControl() {
+        return archiveControl;
+    }
+
+    /**
+     * @param archiveControl the archiveControl to set
+     */
+    public void setArchiveControl(ArchiverControlBean archiveControl) {
+        this.archiveControl = archiveControl;
+    }
 }
+
+

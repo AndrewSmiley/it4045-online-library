@@ -5,3 +5,19 @@ Format
 Publication year
 Author
 Status
+
+
+
+***Assignment 3 Description***
+Only a librarian could add a new item. However, both the librarian and the student workers can view a list of items, search (view status) of an item, and check out an item. 
+You will also need to add a check-in feature to the system. When an item is checked in, its status should be changed to available and a new activity is added. 
+ 
+Finally, add features to display a report of the account of a patron using their id. 
+ 
+Continue using the MVC pattern and other suitable patterns. 
+
+
+***TO DO***
+Create account DB
+Set privilages
+Create a patron report
