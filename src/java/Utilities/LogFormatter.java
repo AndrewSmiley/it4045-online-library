@@ -12,6 +12,7 @@ public class LogFormatter {
     private String checkOutStr;
     private String checkInStr;
     private String newItemStr;
+    private DateUtil timePiece = new DateUtil();
 
     
     /**
@@ -23,7 +24,7 @@ public class LogFormatter {
      * */
     public String logItemCreated(String title, String format, String status)
     {
-        setNewItemStr("Item "+title+" of Format "+format+" created. Status set to "+status);
+        setNewItemStr(timePiece.getCurrentTime()+" "+title+" Added. Type: "+format+ "Status: "+status);
         return newItemStr;
     }
     
@@ -34,10 +35,10 @@ public class LogFormatter {
      * @param title the title of the item being checked out
      * @return  the log entry of the item checked out
      */
-    public String logItemCheckedOut(String id, String title)
+    public String logItemCheckedOut(String title)
     {
-        setCheckOutStr("Item number "+id+" title: "+title+" status changed to checked-out");
-        return checkOutStr;
+        setCheckOutStr(timePiece.getCurrentTime()+" Item title: "+title+" status changed to checked-out");
+         return checkOutStr;
     }
     
     /**
@@ -46,9 +47,9 @@ public class LogFormatter {
      * @param title the title of the item being checked in
      * @return the log entry of the item being checked in
      */
-    public String logItemCheckedIn(String id, String title)
+    public String logItemCheckedIn(String title)
     {
-        setCheckInStr("Item number "+id+" title: "+title+" status changed to checked-out");
+        setCheckInStr(timePiece.getCurrentTime()+" Item title: "+title+" status changed to checked-out");
         return checkInStr;
     }
     

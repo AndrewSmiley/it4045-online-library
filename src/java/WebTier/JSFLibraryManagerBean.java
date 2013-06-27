@@ -6,7 +6,9 @@ package WebTier;
 import EBJ.ArchiverControlBean;
 import EBJ.OnlineLibraryControlBean;
 import Entities.LibraryItem;
+import Utilities.DateUtil;
 import Utilities.FileWriterUtil;
+import Utilities.LogFormatter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -33,7 +35,9 @@ public class JSFLibraryManagerBean {
     private String status;
     private String searchTitle;
     private LibraryItem resultItem;
-        //Default error value here
+    private LogFormatter logFormatter = new LogFormatter();
+    private DateUtil dateUtil = new DateUtil();
+    //Default error value here
     private String errorMessage = "";
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
     @EJB
@@ -60,7 +64,7 @@ public class JSFLibraryManagerBean {
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
         fileWriter.logItemAdded(getTitle(), getFormat(), getStatus());
-      //  archiveControl.logNewActivity("Created item: "+getTitle(), format);
+        getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate());
         
     }
 
@@ -88,7 +92,7 @@ public class JSFLibraryManagerBean {
 
         getControl().ejbCheckIn(this.resultItem.getId());
         fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Available");
-        
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getCurrentTime());
 
     }
 
@@ -99,6 +103,8 @@ public class JSFLibraryManagerBean {
         getControl().ejbCheckOut(this.resultItem.getId());
        // getArchiveControl().logNewActivity(, "10/05/2010");
         fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Checked-Out");
+     
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate());
     }
 
     /*
