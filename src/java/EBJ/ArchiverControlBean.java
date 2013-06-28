@@ -5,9 +5,13 @@
 package EBJ;
 
 import Entities.LogArchive;
+import Utilities.DateUtil;
+import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 /**
  *
@@ -40,6 +44,26 @@ public class ArchiverControlBean {
             archive.setContent(content);
             archive.setEntryDate(entryDate);
             archiveEntityManager.persist(archive);
+    }
+    
+    /**
+     * 
+     * @param date The date of which we wish to search for logs. Default is today, format is YYY-mm-dd
+     * @return A list of the results. 
+     */
+    
+    public ArrayList retrieveLogs(String date)
+    {
+        DateUtil util = new DateUtil();
+        String findLogsQueryStr = "select * from APP.LOGARCHIVE Where ENTRYDATE  = '"+util.getTodaysDate()+"' ORDER BY ID";
+        
+        ArrayList logResults = (ArrayList) archiveEntityManager.createQuery(findLogsQueryStr).getResultList();
+        
+        return logResults;
+        
+       // archiveEntityManager.createQuery().
+        
+        
     }
     
     

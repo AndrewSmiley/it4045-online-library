@@ -52,7 +52,7 @@ public class DateUtil {
     public void setStrDate(String strDate) {
         this.strDate = strDate;
     }
-
+    
     /**
      * @return the time
      */

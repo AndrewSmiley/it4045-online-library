@@ -49,7 +49,7 @@ public class LogFormatter {
      */
     public String logItemCheckedIn(String title)
     {
-        setCheckInStr(timePiece.getCurrentTime()+" Item title: "+title+" status changed to checked-out");
+        setCheckInStr(timePiece.getCurrentTime()+" Item title: "+title+" status changed to checked-in");
         return checkInStr;
     }
     
