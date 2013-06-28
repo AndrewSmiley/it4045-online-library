@@ -68,7 +68,7 @@ public class JSFLibraryManagerBean {
         
     }
 
-    /*
+    /**
      * Method to find item
      */
     public void findItem() {
@@ -92,7 +92,7 @@ public class JSFLibraryManagerBean {
 
         getControl().ejbCheckIn(this.resultItem.getId());
         fileWriter.logStatusChanged(this.resultItem.getTitle(), this.resultItem.getFormat(), "Available");
-        getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getCurrentTime());
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate());
 
     }
 

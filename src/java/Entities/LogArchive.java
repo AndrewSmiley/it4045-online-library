@@ -9,24 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  *
- * @author Andrew Smiley
- * This is the Entity Class which we may use to store the Log files to the Database
+ * @author pridemai
  */
 @Entity
-
-/*
- * Some Queries for the Database
- */
-@NamedQueries({
-//@NamedQuery(name="get", query="select c from LogArchive where c.id = 1")
-})
-
-
 public class LogArchive implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,6 +22,7 @@ public class LogArchive implements Serializable {
     private Long id;
     private String content;
     private String entryDate;
+           
 
     public Long getId() {
         return id;
@@ -65,7 +54,7 @@ public class LogArchive implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.LogArchiverEntity[ id=" + id + " ]";
+        return "Entities.LogArchive[ id=" + id + " ]";
     }
 
     /**
