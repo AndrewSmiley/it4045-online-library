@@ -19,7 +19,6 @@
         
         <div id="header">
         <br/>
-            <p id="welcome">Welcome to the Online Library Tool</p>
         <br/>
         </div>
         <br/>
@@ -151,8 +150,8 @@
           <h:form>
           <h:commandButton action="#{downloadManagerBean.downLoad()}" value="Download Log"/>
           </h:form>
-       
-        <h:dataTable value="#{}"></h:dataTable>
+        <h:link value="View Logs" outcome="logarchive"/>
+        
     </h:body>
     
 </html>

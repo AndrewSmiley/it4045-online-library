@@ -91,7 +91,7 @@ public class JSFLibraryManagerBean {
     public void checkIn() {
 
         getControl().ejbCheckIn(this.resultItem.getId());
-       
+       fileWriter.logStatusChanged(resultItem.getTitle(), resultItem.getFormat(), "Checked-In");
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate());
 
     }
@@ -102,7 +102,7 @@ public class JSFLibraryManagerBean {
     public void checkOut() {
         getControl().ejbCheckOut(this.resultItem.getId());
        
-       
+       fileWriter.logStatusChanged(resultItem.getTitle(), resultItem.getFormat(), "Checked-Out");
      
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate());
     }

@@ -53,7 +53,7 @@ public class DownloadManagerBean {
             * ********************
             */
            this.setFilePath("/Users/Smiley/dailylog_"+dateUtil.getTodaysDate()+".txt");
-           
+          // this.setFilePath(System.clearProperty("user.home")+"log.txt");
             FacesContext context = FacesContext.getCurrentInstance();  
             HttpServletResponse response = (HttpServletResponse) context  
                       .getExternalContext().getResponse();  
