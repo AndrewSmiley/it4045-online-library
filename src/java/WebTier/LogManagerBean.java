@@ -5,10 +5,12 @@
 package WebTier;
 
 import EBJ.ArchiverControlBean;
+import Entities.LogArchive;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Utilities.DateUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +36,21 @@ public class LogManagerBean {
         @EJB
        private ArchiverControlBean logBeanObject;
        private DateUtil date;
-       private ArrayList logsArrayList;
+       private List<LogArchive> logsArray; 
        
        
        /**
         * Method to grab the logs back from the database
-        * @param date the date for which we wish to pull logs from 
+        * 
         */
        
-       public void retrieveLogs(DateUtil date)
+       public void retrieveLogs()
        {
-           logsArrayList = new ArrayList();
-           logsArrayList = logBeanObject.retrieveLogs(date.getTodaysDate());
+           logsArray = new ArrayList<LogArchive>();
+           date = new DateUtil();
+           //logsArray = new ArrayList();
+          logsArray.addAll(logBeanObject.retrieveLogs(date.getTodaysDate()));
+          
            
        }
 
@@ -79,18 +84,18 @@ public class LogManagerBean {
 
     /**
      * @return the logsArrayList
-     */
+     *
     public ArrayList getLogsArrayList() {
         return logsArrayList;
     }
 
     /**
      * @param logsArrayList the logsArrayList to set
-     */
+     *
     public void setLogsArrayList(ArrayList logsArrayList) {
         this.logsArrayList = logsArrayList;
     }
-       
+       **/
        
         
         
