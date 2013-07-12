@@ -6,7 +6,9 @@ package EBJ;
 
 import Entities.LogArchive;
 import Utilities.DateUtil;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,10 +58,18 @@ public class ArchiverControlBean {
     {
         DateUtil util = new DateUtil();
         String findLogsQueryStr = "select * from APP.LOGARCHIVE Where ENTRYDATE  = '"+util.getTodaysDate()+"' ORDER BY ID";
-        
-        ArrayList logResults = (ArrayList) archiveEntityManager.createQuery(findLogsQueryStr).getResultList();
-        
-        return logResults;
+         List       logResults = null ;
+       // ArrayList logResults = new ArrayList();
+  
+     logResults.addAll(archiveEntityManager.createQuery(findLogsQueryStr).getResultList());
+     //   System.out.println(logResults.);
+     for (int i = 0; i < logResults.size(); i++)
+     {
+         System.out.println(logResults.get(i).getClass());
+         
+     }
+        return (ArrayList) logResults;
+      //  return logResults;
         
        // archiveEntityManager.createQuery().
         

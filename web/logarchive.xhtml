@@ -13,8 +13,8 @@ and open the template in the editor.
     <body>
         <div>Logs</div>
         
-        
-        <h:dataTable value="#{logManagerBean.logsArrayList}" var="l">
+        <h:commandButton onclick="#{logManagerBean.retrieveLogs()}" value="View"/>
+        <h:dataTable value="#{logManagerBean.logsArray}" var="l">
             <h:column ><f:facet name="header">Description</f:facet>
             
             </h:column>

@@ -36,7 +36,7 @@ public class LogManagerBean {
         @EJB
        private ArchiverControlBean logBeanObject;
        private DateUtil date;
-       private List<LogArchive> logsArray; 
+       private ArrayList logsArray; 
        
        
        /**
@@ -46,11 +46,10 @@ public class LogManagerBean {
        
        public void retrieveLogs()
        {
-           logsArray = new ArrayList<LogArchive>();
+           logsArray = new ArrayList();
            date = new DateUtil();
            //logsArray = new ArrayList();
-          logsArray.addAll(logBeanObject.retrieveLogs(date.getTodaysDate()));
-          
+           setLogsArray(logBeanObject.retrieveLogs(date.getTodaysDate()));
            
        }
 
@@ -84,18 +83,18 @@ public class LogManagerBean {
 
     /**
      * @return the logsArrayList
-     *
-    public ArrayList getLogsArrayList() {
-        return logsArrayList;
+     */
+    public ArrayList getLogsArray() {
+        return logsArray;
     }
 
     /**
-     * @param logsArrayList the logsArrayList to set
-     *
-    public void setLogsArrayList(ArrayList logsArrayList) {
-        this.logsArrayList = logsArrayList;
+     * @param logsArray the logsArrayList to set
+     */
+    public void setLogsArray(ArrayList logsArray) {
+        this.logsArray = logsArray;
     }
-       **/
+    
        
         
         
