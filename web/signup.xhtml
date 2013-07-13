@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    <head>
+        <title>Add a new library member</title>
+    </head>
+    <body>
+        
+        <h:form>
+        <h:outputLabel rendered="true" value="First Name: " for="fname" />
+        <h:inputText rendered="true" id="fname" value="#{patronManagerBean.fName}"/><br/><br/>
+        
+        <h:outputLabel rendered="true" value="Last Name: " for="lname"/>
+        <h:inputText rendered="true" id="lname" value="#{patronManagerBean.lName}"/><br/><br/>
+        <h:outputLabel rendered="true" value="Address: " for="address"/>
+        <h:inputText rendered="true" id="address" value="#{patronManagerBean.address}"/><br/><br/>
+        <h:outputLabel rendered="true" for="city" value="City: "/>
+        <h:inputText rendered="true" id="city" value="#{patronManagerBean.city}"/><br/><br/>
+        <h:outputLabel rendered="true" for="stateName" value="State: "/>
+        <h:inputText rendered="true" id="stateName" value="#{patronManagerBean.stateName}"/><br/><br/>
+        <h:outputLabel rendered="true" for="zip" value="Zip Code: "/>
+        <h:inputText rendered="true" id="zip" value="#{patronManagerBean.zip}"/><br/><br/>
+        <h:commandButton rendered="true" action="#{patronManagerBean.createNewPatron()}" value="Add Member"/>
+        
+
+        </h:form>
+    </body>
+</html>

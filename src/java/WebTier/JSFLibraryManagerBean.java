@@ -63,7 +63,7 @@ public class JSFLibraryManagerBean {
      */
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
-        fileWriter.logItemAdded(getTitle(), getFormat(), getStatus());
+        
         getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate());
         
     }
