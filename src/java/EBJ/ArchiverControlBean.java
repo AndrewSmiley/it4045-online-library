@@ -13,6 +13,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 
 
 /**
@@ -46,32 +51,30 @@ public class ArchiverControlBean {
             archive.setContent(content);
             archive.setEntryDate(entryDate);
             archiveEntityManager.persist(archive);
+            
     }
     
     /**
-     * 
+     * Method to get the logs from the DB
      * @param date The date of which we wish to search for logs. Default is today, format is YYY-mm-dd
      * @return A list of the results. 
      */
     
-    public ArrayList retrieveLogs(String date)
+    public List retrieveLogs()
     {
-        DateUtil util = new DateUtil();
-        String findLogsQueryStr = "select * from APP.LOGARCHIVE Where ENTRYDATE  = '"+util.getTodaysDate()+"' ORDER BY ID";
-         List       logResults = null ;
-       // ArrayList logResults = new ArrayList();
-  
-     logResults.addAll(archiveEntityManager.createQuery(findLogsQueryStr).getResultList());
-     //   System.out.println(logResults.);
-     for (int i = 0; i < logResults.size(); i++)
-     {
-         System.out.println(logResults.get(i).getClass());
-         
-     }
-        return (ArrayList) logResults;
-      //  return logResults;
+       DateUtil util = new DateUtil();
+
         
-       // archiveEntityManager.createQuery().
+        
+        CriteriaBuilder builder = archiveEntityManager.getCriteriaBuilder();
+        CriteriaQuery<LogArchive> query = builder.createQuery(LogArchive.class);
+        Root<LogArchive> root = query.from(LogArchive.class);
+        query.select(root);
+        query.where(builder.equal(root.get("entryDate"), util.getTodaysDate()));
+        return archiveEntityManager.createQuery(query).getResultList();
+        
+                
+        
         
         
     }

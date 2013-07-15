@@ -73,7 +73,8 @@ public class OnlineLibraryControlBean {
             return temp;
         }
     
-    
+        
+        
         public void ejbCheckIn(Long id)
         {
             int checkedIn = entityManager.createNamedQuery("checkIn").setParameter("id", id).executeUpdate();

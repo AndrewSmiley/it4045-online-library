@@ -85,25 +85,22 @@ public class JSFLibraryManagerBean {
     }
 
    
-    /*
+    /**
      * Method to update the status of an item from "checked-out" to "available;
      */
     public void checkIn() {
 
         getControl().ejbCheckIn(this.resultItem.getId());
-       fileWriter.logStatusChanged(resultItem.getTitle(), resultItem.getFormat(), "Checked-In");
+       
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate());
 
     }
 
-    /*
+    /**
      * Method to check-out an item
      */
     public void checkOut() {
         getControl().ejbCheckOut(this.resultItem.getId());
-       
-       fileWriter.logStatusChanged(resultItem.getTitle(), resultItem.getFormat(), "Checked-Out");
-     
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate());
     }
 
