@@ -19,6 +19,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class PatronManagerBean {
 
+    private Long   id;
     private String fName;
     private String lName;
     private String address;
@@ -55,6 +56,15 @@ public class PatronManagerBean {
          setPatronList(getPatronControl().searchByFirstName(this.fName));
         }
         
+        
+        /**
+         * Method to search for patron using their unique ID
+         */
+        public void patronIDSearch()
+        {
+         setPatronList(getPatronControl().searchByID(getId()));
+         
+         }
         
         /**
      * @return the fName
@@ -166,5 +176,19 @@ public class PatronManagerBean {
      */
     public void setPatronList(List<Patron> patronList) {
         this.patronList = patronList;
+    }
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 }

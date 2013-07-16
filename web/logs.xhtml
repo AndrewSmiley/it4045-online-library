@@ -11,7 +11,15 @@ and open the template in the editor.
         <title>Logged Activities</title>
     </head>
     <body>
-        <h3>Logged activity for today</h3>
+         <div id="nav">
+            <a href="http://localhost:8080/OnlineLibrary/">Home</a>
+            <a href="http://localhost:8080/OnlineLibrary/faces/logs.xhtml">Activity Log</a>
+            <a href="http://localhost:8080/OnlineLibrary/faces/search.xhtml">Search Catalog</a>
+            
+            
+        </div><br/>
+        <h3>Logged activity for today</h3><br/><br/>
+        
         <h:dataTable value="#{logManagerBean.logs}" var="log">
             <h:column>
                 <f:facet name="header">

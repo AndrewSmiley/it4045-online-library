@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import javax.resource.NotSupportedException;
 
 /**
  *
@@ -53,15 +54,7 @@ public void addNewPatron(String fName, String lName, String address, String city
  */
 public List searchByFirstName(String fname)
 {
-    /*
-     *  CriteriaBuilder builder = archiveEntityManager.getCriteriaBuilder();
-        CriteriaQuery<LogArchive> query = builder.createQuery(LogArchive.class);
-        Root<LogArchive> root = query.from(LogArchive.class);
-        query.select(root);
-        query.where(builder.equal(root.get("entryDate"), util.getTodaysDate()));
-        return archiveEntityManager.createQuery(query).getResultList();
-        
-     */
+    
     
     CriteriaBuilder criteriaBuilder =  manager.getCriteriaBuilder();
     CriteriaQuery<Patron> pQuery =  criteriaBuilder.createQuery(Patron.class);
@@ -73,5 +66,29 @@ public List searchByFirstName(String fname)
     return manager.createQuery(pQuery).getResultList();
     
     
+}
+
+/**
+ * Stub method to pull method 
+ */
+public void  searchByLastName()
+{
+   
+}
+
+/**
+ * Method to Search for patron by their unique patron ID
+ * @param id the ID to search for patrons by
+ */
+
+public List searchByID(Long id)
+{
+    CriteriaBuilder builder = manager.getCriteriaBuilder();
+    CriteriaQuery<Patron> query = builder.createQuery(Patron.class);
+    Root<Patron> pRoot = query.from(Patron.class);
+    query.select(pRoot);
+    Path path = pRoot.get("id");
+    query.where(builder.equal(path, id));
+    return manager.createQuery(query).getResultList();
 }
 }
