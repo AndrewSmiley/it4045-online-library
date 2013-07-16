@@ -5,6 +5,8 @@
 package WebTier;
 
 import EBJ.PatronControlBean;
+import Entities.Patron;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,6 +25,7 @@ public class PatronManagerBean {
     private String city;
     private String stateName;
     private String zip;
+    private List<Patron> patronList;
     
     @EJB
     private PatronControlBean patronControl;
@@ -37,14 +40,23 @@ public class PatronManagerBean {
 
     /**
      * Method to connect the create a new patron and add them to the database from the jsf page
-
- */
+     */
         public void createNewPatron()
         {
             getPatronControl().addNewPatron(getfName(), getlName(), getCity(), getAddress(), getStateName(), getZip());
             
         }
-    /**
+    
+       /**
+        * Method to search for a patron by their first name
+        */
+        public void patronFirstNameSearch()
+        {
+         setPatronList(getPatronControl().searchByFirstName(this.fName));
+        }
+        
+        
+        /**
      * @return the fName
      */
     public String getfName() {
@@ -140,5 +152,19 @@ public class PatronManagerBean {
      */
     public void setPatronControl(PatronControlBean patronControl) {
         this.patronControl = patronControl;
+    }
+
+    /**
+     * @return the patronList
+     */
+    public List<Patron> getPatronList() {
+        return patronList;
+    }
+
+    /**
+     * @param patronList the patronList to set
+     */
+    public void setPatronList(List<Patron> patronList) {
+        this.patronList = patronList;
     }
 }
