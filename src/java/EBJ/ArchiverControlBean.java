@@ -44,12 +44,14 @@ public class ArchiverControlBean {
      * Method to log a new activity to the Database of logs. 
      * @param content- the content of the log being pushed to the database
      * @param entryDate - The date in which the 
+     * @param patronID The ID of the patron for whom the activity is for
      */
-    public void logNewActivity(String content, String entryDate)
+    public void logNewActivity(String content, String entryDate, Long patronID)
     {
             LogArchive archive = new LogArchive();
             archive.setContent(content);
             archive.setEntryDate(entryDate);
+            archive.setPatronID(patronID);
             archiveEntityManager.persist(archive);
             
     }

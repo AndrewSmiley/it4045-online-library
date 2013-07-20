@@ -4,11 +4,59 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title>Add Items</title>
     </head>
     <body>
-        <div>Add items</div>
+             <h:form>
+            <h:outputLabel for="title" rendered="true" value="Title: "/>
+            
+            <h:inputText id="title" required="true" 
+                         value="#{jSFLibraryManagerBean.title}"/><br/><br/>
+            
+            <h:outputLabel for="author" rendered="true" value="Author: "/>
+            
+            <h:inputText id="author" required="true" 
+                         value="#{jSFLibraryManagerBean.author}"/><br/><br/>
+            
+            <h:outputLabel for="publisher" rendered="true" value="Publisher: "/>
+            
+            <h:inputText id="publisher" required="true" value="#{jSFLibraryManagerBean.publisher}"/><br/><br/>
+                               
+            <h:outputLabel for="publicationYear" rendered="true" value="Year Published: "/>
+            
+            <h:inputText id="publicationYear" required="true" 
+                         value="#{jSFLibraryManagerBean.publicationYear}"/><br/><br/>
+                              
+            
+            <h:outputLabel for="media" rendered="true" value="Type of Media: "/>
+            <br/>   
+            <h:selectOneMenu id="media" required="true" 
+                             value="#{jSFLibraryManagerBean.format}">
+            
+            <f:selectItem itemLabel="Book" itemValue="Book"/>
+            <f:selectItem itemLabel="Audio" itemValue="Audio"/>
+            <f:selectItem itemLabel="Video" itemValue="Video"/>
+            </h:selectOneMenu>
+            <br/><br/>
+            
+            <h:outputLabel for="status" rendered="true" value="Status"/>
+           <br/>
+            <h:selectOneMenu id="status" required="true" value="#{jSFLibraryManagerBean.status}">
+            <f:selectItem itemLabel="Available" itemValue="Available" />
+            <f:selectItem itemLabel="Checked-Out" itemValue="Checked-Out"/>
+            <f:selectItem itemLabel="Missing" itemValue="Missing"/>
+            </h:selectOneMenu>
+            
+                             
+            
+           <br/><br/>
+            <h:commandButton value="Add Item" action="#{jSFLibraryManagerBean.createLibraryItem()}"/>
+            
+            
+        </h:form>
     </body>
 </html>

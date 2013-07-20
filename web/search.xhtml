@@ -4,11 +4,95 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title>TODO supply a title</title>
     </head>
     <body>
-        <div>TODO write content</div>
+         <p> Search By title</p>
+        <h:form>
+            <h:inputText id="searchItem" 
+                         
+                         value="#{jSFLibraryManagerBean.searchTitle}" 
+                         
+                         
+                         required="true"  />
+            <h:commandButton value="Search" 
+                             action="#{jSFLibraryManagerBean.findItem}"/>
+            
+            
+            
+            
+        </h:form> 
+         <h:panelGroup rendered="#{jSFLibraryManagerBean.displaySearch}">
+        <h:outputText value="Item Found" rendered="#{jSFLibraryManagerBean.displaySearch}"/>
+                      
+       
+        <h:form/>
+        <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItem}">
+                    rendered="#{jSFLibraryManagerBean.displaySearch}"/>
+        
+            <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="ID"/>
+                </f:facet>
+                <h:outputText value="#{item.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Title"/>
+                </f:facet>
+                <h:outputText value="#{item.title}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Author"/>
+                </f:facet>
+                <h:outputText value="#{item.author}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Publisher"/>
+                </f:facet>
+                <h:outputText value="#{item.publisher}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Year Published"/>
+                </f:facet>
+                <h:outputText value="#{item.yearPublished}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Format"/>
+                </f:facet>
+                <h:outputText value="#{item.format}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Status"/>
+                </f:facet>
+                <h:outputText value="#{item.status}"/>
+            </h:column>
+             <h:column>
+                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
+                    <h:outputText value="Action"/>
+                    
+                </f:facet>
+                 
+             </h:column>
+        </h:dataTable>
+         </h:panelGroup>
+        <h:outputText id="searchError" rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
+       
+        <h:panelGroup id="itemAction" rendered="#{jSFLibraryManagerBean.displaySearch}">
+               <h:form>
+           <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true"/>
+           <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
+           <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" />
+                 </h:form>
+           </h:panelGroup>
     </body>
 </html>

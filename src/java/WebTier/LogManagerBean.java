@@ -11,15 +11,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import Utilities.DateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author pridemai
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 /**
  * Managed session bean to handle log retrieval 
  */
@@ -49,7 +49,7 @@ public class LogManagerBean {
            
          date = new DateUtil();  
          
-        // logs = logBeanObject.retrieveLogs(date.getTodaysDate());
+        logs = logBeanObject.retrieveLogs();
            return logs;
        }
 

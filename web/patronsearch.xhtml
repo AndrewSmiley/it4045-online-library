@@ -63,7 +63,31 @@ and open the template in the editor.
                </f:facet>
                <h:outputText value =" #{patron.zip}"/>
            </h:column>
+           <h:column>
+               <f:facet name="header">
+                   <h:outputText value="Action"/>
+               </f:facet>
+               <h:form>
+               <h:commandButton value="View Report"/>
+               </h:form>
+       </h:column>
        </h:dataTable> 
        
+       
+       
+       
+       <h:panelGroup rendered="#{patronManagerBean.viewReport}">
+           <h:dataTable value="#{patronManagerBean.patronActivities}" var="patronActivities">
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value ="Description"/>
+                   </f:facet>
+                   <h:outputText value="#{patronActivities.content}"/>
+               </h:column>
+           
+           </h:dataTable>
+       
+       
+       </h:panelGroup>
     </body>
 </html>

@@ -4,6 +4,7 @@
  */
 package EBJ;
 
+import Entities.LogArchive;
 import Entities.Patron;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -23,6 +24,7 @@ import javax.resource.NotSupportedException;
 public class PatronControlBean {
 @PersistenceContext
 private EntityManager manager;
+
 
 /**
  *@param fname The first name of the patron
@@ -88,6 +90,23 @@ public List searchByID(Long id)
     Root<Patron> pRoot = query.from(Patron.class);
     query.select(pRoot);
     Path path = pRoot.get("id");
+    query.where(builder.equal(path, id));
+    return manager.createQuery(query).getResultList();
+}
+
+/**
+ * Method to get the activity report of the Patron 
+ * @param id The patron id for which we want to get the activity report of
+ * @return 
+ */
+public List getPatronActivityReport(Long id)
+{
+  
+    CriteriaBuilder builder = manager.getCriteriaBuilder();
+    CriteriaQuery<LogArchive> query = builder.createQuery(LogArchive.class);
+    Root<LogArchive> lRoot = query.from(LogArchive.class);
+    query.select(lRoot);
+    Path path = lRoot.get("patronID");
     query.where(builder.equal(path, id));
     return manager.createQuery(query).getResultList();
 }

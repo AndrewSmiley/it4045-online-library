@@ -5,6 +5,7 @@
 package WebTier;
 
 import EBJ.PatronControlBean;
+import Entities.LogArchive;
 import Entities.Patron;
 import java.util.List;
 import javax.ejb.EJB;
@@ -27,6 +28,8 @@ public class PatronManagerBean {
     private String stateName;
     private String zip;
     private List<Patron> patronList;
+    private List<LogArchive> patronActivities;
+    private Boolean viewReport;
     
     @EJB
     private PatronControlBean patronControl;
@@ -35,7 +38,7 @@ public class PatronManagerBean {
      * Creates a new instance of PatronManagerBean
      */
     public PatronManagerBean() {
-        
+        viewReport = false;
         
     }
 
@@ -65,6 +68,13 @@ public class PatronManagerBean {
          setPatronList(getPatronControl().searchByID(getId()));
          
          }
+        
+        
+        public void displayReport()
+        {
+            setPatronActivities(getPatronControl().getPatronActivityReport(getId()));
+           this.viewReport = true;
+        }
         
         /**
      * @return the fName
@@ -190,5 +200,33 @@ public class PatronManagerBean {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the viewReport
+     */
+    public Boolean getViewReport() {
+        return viewReport;
+    }
+
+    /**
+     * @param viewReport the viewReport to set
+     */
+    public void setViewReport(Boolean viewReport) {
+        this.viewReport = viewReport;
+    }
+
+    /**
+     * @return the patronActivities
+     */
+    public List<LogArchive> getPatronActivities() {
+        return patronActivities;
+    }
+
+    /**
+     * @param patronActivities the patronActivities to set
+     */
+    public void setPatronActivities(List<LogArchive> patronActivities) {
+        this.patronActivities = patronActivities;
     }
 }

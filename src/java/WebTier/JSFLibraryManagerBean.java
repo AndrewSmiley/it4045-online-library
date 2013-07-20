@@ -9,21 +9,18 @@ import Entities.LibraryItem;
 import Utilities.DateUtil;
 import Utilities.FileWriterUtil;
 import Utilities.LogFormatter;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.swing.JOptionPane;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Andrew
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class JSFLibraryManagerBean {
 
     //create attributes
@@ -37,6 +34,8 @@ public class JSFLibraryManagerBean {
     private LibraryItem resultItem;
     private LogFormatter logFormatter = new LogFormatter();
     private DateUtil dateUtil = new DateUtil();
+    private Long patronID;
+    private Boolean displaySearch;
     //Default error value here
     private String errorMessage = "";
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
@@ -49,6 +48,7 @@ public class JSFLibraryManagerBean {
      * Creates a new instance of JSFLibraryManagerBean
      */
     public JSFLibraryManagerBean() {
+        this.displaySearch = false;
     }
 
     /*
@@ -64,7 +64,7 @@ public class JSFLibraryManagerBean {
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
         
-        getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate());
+        getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate(), getPatronID());
         
     }
 
@@ -75,9 +75,12 @@ public class JSFLibraryManagerBean {
         //Trim the whitespace off of the String prior to executing the search
         this.removeWhiteSpace();
         try {
-            this.setErrorMessage("");
+         
             setResultItem(getControl().findItem(searchTitle));
+            setDisplaySearch(true);
+            this.errorMessage = "";
         } catch (Exception ex) {
+            setDisplaySearch(false);
             this.setErrorMessage("Error: Item Not Found, Please Check Your Search and Try Again");
 
 
@@ -92,16 +95,18 @@ public class JSFLibraryManagerBean {
 
         getControl().ejbCheckIn(this.resultItem.getId());
        
-        getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate());
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
 
     }
 
+    
+  
     /**
      * Method to check-out an item
      */
     public void checkOut() {
         getControl().ejbCheckOut(this.resultItem.getId());
-        getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate());
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
     }
 
     /*
@@ -125,7 +130,7 @@ public class JSFLibraryManagerBean {
     }
     
     
-    public boolean toggleResults()
+    public boolean toggleErrorMessage()
     {
         if(this.getErrorMessage().isEmpty())
         {
@@ -290,6 +295,34 @@ public class JSFLibraryManagerBean {
      */
     public void setArchiveControl(ArchiverControlBean archiveControl) {
         this.archiveControl = archiveControl;
+    }
+
+    /**
+     * @return the patronID
+     */
+    public Long getPatronID() {
+        return patronID;
+    }
+
+    /**
+     * @param patronID the patronID to set
+     */
+    public void setPatronID(Long patronID) {
+        this.patronID = patronID;
+    }
+
+    /**
+     * @return the displaySearch
+     */
+    public Boolean getDisplaySearch() {
+        return displaySearch;
+    }
+
+    /**
+     * @param displaySearch the displaySearch to set
+     */
+    public void setDisplaySearch(Boolean displaySearch) {
+        this.displaySearch = displaySearch;
     }
 }
 

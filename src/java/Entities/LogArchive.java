@@ -30,6 +30,7 @@ public class LogArchive implements Serializable {
     private Long id;
     private String content;
     private String entryDate;
+    private Long patronID;
            
 
     public Long getId() {
@@ -91,6 +92,20 @@ public class LogArchive implements Serializable {
      */
     public void setEntryDate(String entryDate) {
         this.entryDate = entryDate;
+    }
+
+    /**
+     * @return the patronID
+     */
+    public Long getPatronID() {
+        return patronID;
+    }
+
+    /**
+     * @param patronID the patronID to set
+     */
+    public void setPatronID(Long patronID) {
+        this.patronID = patronID;
     }
     
 }
