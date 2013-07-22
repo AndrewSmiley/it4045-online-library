@@ -17,12 +17,13 @@
     
     </h:head>
     <h:body>
-        
-        <div id="header" >
+        <div id="header">
+        <div id="welcome" >
             <h3>Welcome to the online library tool</h3>
                 
             
-          
+            </div>
+                </div>
             <div id="login">
                 <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
                       <h:form>
@@ -43,13 +44,14 @@
          
         <br/>
         <br/>
-        </div>
+    
         <br/>
         <h:panelGroup rendered ="#{loginManagerBean.isAdmin()}">
             <a href="http://localhost:8080/OnlineLibrary/">Home</a><br/>
             <a href="http://localhost:8080/OnlineLibrary/admin/logs.xhtml">Activity Log</a><br/>
             <a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a><br/>
             <a href="http://localhost:8080/OnlineLibrary/admin/AddItems.xhtml"> Add New Items</a><br/>
+            <a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a>
             
         </h:panelGroup>
         <div id="content">

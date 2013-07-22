@@ -10,14 +10,14 @@ import Entities.Patron;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Smiley
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PatronManagerBean {
 
     private Long   id;
@@ -30,6 +30,7 @@ public class PatronManagerBean {
     private List<Patron> patronList;
     private List<LogArchive> patronActivities;
     private Boolean viewReport;
+    private Boolean displayError;
     
     @EJB
     private PatronControlBean patronControl;
@@ -39,6 +40,7 @@ public class PatronManagerBean {
      */
     public PatronManagerBean() {
         viewReport = false;
+        displayError = false;
         
     }
 
@@ -66,6 +68,15 @@ public class PatronManagerBean {
         public void patronIDSearch()
         {
          setPatronList(getPatronControl().searchByID(getId()));
+         if(getPatronList().isEmpty())
+         {
+             this.viewReport = false;
+             this.displayError = true;
+         }else
+         {
+             this.viewReport = true;
+             this.displayError = false;
+         }
          
          }
         
@@ -73,7 +84,8 @@ public class PatronManagerBean {
         public void displayReport()
         {
             setPatronActivities(getPatronControl().getPatronActivityReport(getId()));
-           this.viewReport = true;
+        
+           
         }
         
         /**
@@ -228,5 +240,19 @@ public class PatronManagerBean {
      */
     public void setPatronActivities(List<LogArchive> patronActivities) {
         this.patronActivities = patronActivities;
+    }
+
+    /**
+     * @return the displayError
+     */
+    public Boolean getDisplayError() {
+        return displayError;
+    }
+
+    /**
+     * @param displayError the displayError to set
+     */
+    public void setDisplayError(Boolean displayError) {
+        this.displayError = displayError;
     }
 }

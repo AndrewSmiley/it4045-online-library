@@ -7,23 +7,60 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <head>
+    <h:head>
         <title>Search For Patron</title>
-    </head>
+         <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>    
+    </h:head>
     <body>
-         <div id="nav">
-            <a href="http://localhost:8080/OnlineLibrary/">Home</a>
-            <a href="http://localhost:8080/OnlineLibrary/faces/logs.xhtml">Activity Log</a>
-            <a href="http://localhost:8080/OnlineLibrary/faces/search.xhtml">Search Catalog</a>
+          <div id="header">
+        <div id="welcome" >
+            <h3>Find a patron</h3>
+        
+            </div>
+                </div>
+            <div id="login">
+                <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
+                      <h:form>
+                          <h:inputText value="#{loginManagerBean.username}" size="25" /> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
+             <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
+                
+                
+         </h:form> <h:outputText value="Login Failed"/>    
+         </h:panelGroup>
+     
+            <h:panelGroup rendered="#{not empty request.remoteUser}">
+                <h:form>
+                    Hello, #{request.remoteUser}<h:commandButton value="logout" action="#{loginManagerBean.logout()}" />
+                </h:form>
+                </h:panelGroup>    
+        
+            </div>
+         
+        <br/>
+        <br/>
+    
+        <br/>
+     
+        <h:panelGroup rendered ="#{loginManagerBean.isAdmin()}">
+            <a href="http://localhost:8080/OnlineLibrary/">Home</a><br/>
+            <a href="http://localhost:8080/OnlineLibrary/admin/logs.xhtml">Activity Log</a><br/>
+            <a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a><br/>
+            <a href="http://localhost:8080/OnlineLibrary/admin/AddItems.xhtml"> Add New Items</a><br/>
+            <a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a>
             
-            
-        </div>
+        </h:panelGroup>
+           
+        
+        <div id="content">
        <p> Search By ID</p>
         <h:form>
             <h:inputText id="userSearch" value="#{patronManagerBean.id}" required="true"  />
             <h:commandButton value="Search" 
                              action="#{patronManagerBean.patronIDSearch()}"/>
          </h:form> 
+       
+       <h:outputText id="errormessage" rendered="#{patronManagerBean.displayError}" value="No Users Found"/>
+       <h:panelGroup rendered="#{patronManagerBean.viewReport}">
        <h:dataTable value="#{patronManagerBean.patronList}" var="patron">
            <h:column>
                <f:facet name="header">
@@ -68,11 +105,11 @@ and open the template in the editor.
                    <h:outputText value="Action"/>
                </f:facet>
                <h:form>
-               <h:commandButton value="View Report"/>
+                   <h:commandButton value="View Report" action="#{patronManagerBean.displayReport()}"/>
                </h:form>
        </h:column>
        </h:dataTable> 
-       
+       </h:panelGroup>
        
        
        
@@ -89,5 +126,6 @@ and open the template in the editor.
        
        
        </h:panelGroup>
+        </div>
     </body>
 </html>
