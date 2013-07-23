@@ -7,58 +7,57 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title>Search For Patron</title>
-         <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>    
+<h:head>
+        <title>Patron Management</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
     </h:head>
     <body>
-          <div id="header">
-        <div id="welcome" >
-            <h3>Find a patron</h3>
-        
-            </div>
-                </div>
-            <div id="login">
-                <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
-                      <h:form>
-                          <h:inputText value="#{loginManagerBean.username}" size="25" /> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
+           <div  class="container">
+       <div class="header">
+       
+            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
+            <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
+                 <h:form>
+                          <h:outputLabel for="username" value="Username"/> <h:inputText id="username" value="#{loginManagerBean.username}" size="25" /><h:outputLabel for="password" value="password"/> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
              <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
+             
                 
-                
-         </h:form> <h:outputText value="Login Failed"/>    
+         </h:form>   
          </h:panelGroup>
-     
-            <h:panelGroup rendered="#{not empty request.remoteUser}">
-                <h:form>
-                    Hello, #{request.remoteUser}<h:commandButton value="logout" action="#{loginManagerBean.logout()}" />
-                </h:form>
-                </h:panelGroup>    
+            <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
+                <h:outputText value="Hello, #{loginManagerBean.username}"/>
+            </h:panelGroup>
+      
+    </div>
         
-            </div>
+ 
          
-        <br/>
-        <br/>
-    
-        <br/>
-     
-        <h:panelGroup rendered ="#{loginManagerBean.isAdmin()}">
-            <a href="http://localhost:8080/OnlineLibrary/">Home</a><br/>
-            <a href="http://localhost:8080/OnlineLibrary/admin/logs.xhtml">Activity Log</a><br/>
-            <a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a><br/>
-            <a href="http://localhost:8080/OnlineLibrary/admin/AddItems.xhtml"> Add New Items</a><br/>
-            <a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a>
-            
-        </h:panelGroup>
-           
-        
-        <div id="content">
+         <div class="sidebarleft">
+             
+
+            <ul class="nav">
+                
+            <li><a href="http://localhost:8080/OnlineLibrary/">Home</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a></li>
+            <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
+            <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
+             </ul>
+       
+        </div><br/>
+ 
+        <div class="content">
+            <h3>Find a Patron and View Reports</h3>
        <p> Search By ID</p>
         <h:form>
             <h:inputText id="userSearch" value="#{patronManagerBean.id}" required="true"  />
             <h:commandButton value="Search" 
                              action="#{patronManagerBean.patronIDSearch()}"/>
          </h:form> 
-       
+        
+        
        <h:outputText id="errormessage" rendered="#{patronManagerBean.displayError}" value="No Users Found"/>
        <h:panelGroup rendered="#{patronManagerBean.viewReport}">
        <h:dataTable value="#{patronManagerBean.patronList}" var="patron">
@@ -127,5 +126,6 @@ and open the template in the editor.
        
        </h:panelGroup>
         </div>
-    </body>
+       </div>
+</body>
 </html>

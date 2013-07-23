@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class LoginManagerBean {
 private String username;
 private String password;
+private Boolean loginFailureMessage;
 
 @EJB
 private LoginControlBean control;
@@ -32,18 +33,28 @@ private LoginControlBean control;
      * Creates a new instance of LoginManagerBean
      */
     public LoginManagerBean() {
+        //loginFailureMessage = false;
     }
 
 
 /**
- * Method to determine if a user is logged in or not
- * @return Boolean whether the user is logged in or not
- */
+     * Method to determine if a user is not logged into the application 
+     * @return Boolean Return true if the user is not logged in
+     */
 
+    public Boolean isNotLoggedIn()
+    {
+        return getControl().isNotLoggedIn();
+        
+    }
+    
+      /**
+     * Method to determine if a user is logged into the application
+     * @return Boolean Return true if the user is logged in
+     */
     public Boolean isLoggedIn()
     {
-        return getControl().isLoggedIn();
-        
+     return getControl().isLoggedIn();
     }
     
     /**
@@ -52,9 +63,10 @@ private LoginControlBean control;
     public void login()
     {
     try {
-        getControl().login(this.getUsername(), this.getPassword());
+        setLoginFailureMessage(getControl().login(this.getUsername(), this.getPassword()));
     } catch (ServletException ex) {
         Logger.getLogger(LoginManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+        
     }
     }
     
@@ -114,6 +126,20 @@ private LoginControlBean control;
      */
     public void setControl(LoginControlBean control) {
         this.control = control;
+    }
+
+    /**
+     * @return the loginFailureMessage
+     */
+    public Boolean getLoginFailureMessage() {
+        return loginFailureMessage;
+    }
+
+    /**
+     * @param loginFailureMessage the loginFailureMessage to set
+     */
+    public void setLoginFailureMessage(Boolean loginFailureMessage) {
+        this.loginFailureMessage = loginFailureMessage;
     }
 
 }

@@ -53,4 +53,8 @@
         <description>Admin</description>
         <role-name>Librarian</role-name>
     </security-role>
+    <security-role>
+        <description>Role For the Student Workers, Non-admin</description>
+        <role-name>Worker</role-name>
+    </security-role>
 </web-app>

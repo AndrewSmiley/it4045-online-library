@@ -7,10 +7,49 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
-    </head>
+    <h:head>
+      <title>Search Catalog</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
+    </h:head>
     <body>
+           <div  class="container">
+    <div class="header">
+       
+            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
+            <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
+                 <h:form>
+                          <h:outputLabel for="username" value="Username"/> <h:inputText id="username" value="#{loginManagerBean.username}" size="25" /><h:outputLabel for="password" value="password"/> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
+             <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
+             
+                
+         </h:form>   
+         </h:panelGroup>
+            <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
+                <h:outputText value="Hello, #{loginManagerBean.username}"/>
+            </h:panelGroup>
+      
+    </div>
+        
+ 
+         
+         <div class="sidebarleft">
+             
+
+            <ul class="nav">
+                
+            <li><a href="http://localhost:8080/OnlineLibrary/">Home</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a></li>
+            <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
+            <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
+             </ul>
+       
+        </div><br/>
+ 
+        <div class="content">
+            <h3>Find Items</h3>
          <p> Search By title</p>
         <h:form>
             <h:inputText id="searchItem" 
@@ -76,23 +115,20 @@ and open the template in the editor.
                 </f:facet>
                 <h:outputText value="#{item.status}"/>
             </h:column>
-             <h:column>
-                <f:facet name="header" rendered="#{jSFLibraryManagerBean.displaySearch}">
-                    <h:outputText value="Action"/>
-                    
-                </f:facet>
-                 
-             </h:column>
+            
         </h:dataTable>
          </h:panelGroup>
         <h:outputText id="searchError" rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
        
         <h:panelGroup id="itemAction" rendered="#{jSFLibraryManagerBean.displaySearch}">
                <h:form>
-           <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true"/>
+                   <br/>
+                   <h:outputLabel for="patronID" value="Patron ID"/> <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true" />
            <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
            <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" />
                  </h:form>
            </h:panelGroup>
+        </div>
+           </div>
     </body>
 </html>

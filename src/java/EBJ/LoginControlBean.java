@@ -32,16 +32,22 @@ public class LoginControlBean {
      * @return String   Returns a string that contains a message describing whether the login succeeded or not
      * @throws ServletException 
      */
-    public void login(String username, String password) throws ServletException {
+    public Boolean login(String username, String password) throws ServletException {
         
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try
         {
             request.login(username, password);
+            
+            return true;
+            
         }catch(ServletException ex)
         {
+           
            ex.getStackTrace();
+            return false;
+  
         }
         
         
@@ -69,15 +75,34 @@ public class LoginControlBean {
     }
     
     /**
-     * Method to determine if a user is logged into the application or not
-     * @return Boolean Whether the user is logged in or not
+     * Method to determine if a user is not logged into the application 
+     * @return Boolean Return true if the user is not logged in
      */
-    public Boolean isLoggedIn()
+    public Boolean isNotLoggedIn()
     {
          FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
       String user = request.getRemoteUser();
       if(user == null){
+            return true;
+        }
+      else
+      {
+            return false;
+        }
+    }
+    
+    
+    /**
+     * Method to determine if a user is logged into the application
+     * @return Boolean Return true if the user is logged in
+     */
+    public Boolean isLoggedIn()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+      String user = request.getRemoteUser();
+      if(user != null){
             return true;
         }
       else
