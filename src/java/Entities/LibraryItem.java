@@ -5,12 +5,15 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -23,9 +26,9 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name="getItemByTitle", query="select c from LibraryItem "+
         " c where c.title like :t "),
 
-@NamedQuery(name="checkIn", query="update LibraryItem set status = 'Available' where id = :id"),
+@NamedQuery(name="checkIn", query="update LibraryItem set status = 'Available', patronID=:p, dueDate=:d where id = :id"),
         
-@NamedQuery(name="checkOut", query="update LibraryItem set status = 'Checked-Out' where id = :id")
+@NamedQuery(name="checkOut", query="update LibraryItem set status = 'Checked-Out', patronID=:p, dueDate=:d where id = :id")
 
 })
 
@@ -58,6 +61,11 @@ public class LibraryItem implements Serializable {
     private String publisher;
     private String yearPublished;
     private String status;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private GregorianCalendar dueDate;
+    private Long patronID;
+    
     
     
     public Long getId() {
@@ -175,6 +183,34 @@ public class LibraryItem implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the dueDate
+     */
+    public GregorianCalendar getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * @param dueDate the dueDate to set
+     */
+    public void setDueDate(GregorianCalendar dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    /**
+     * @return the patronID
+     */
+    public Long getPatronID() {
+        return patronID;
+    }
+
+    /**
+     * @param patronID the patronID to set
+     */
+    public void setPatronID(Long patronID) {
+        this.patronID = patronID;
     }
     
 }

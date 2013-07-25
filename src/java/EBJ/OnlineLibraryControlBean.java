@@ -6,6 +6,7 @@ package EBJ;
 
 
 import Entities.LibraryItem;
+import java.util.GregorianCalendar;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,7 +35,7 @@ public class OnlineLibraryControlBean {
      * @param publisher the publisher of the item
      * @param yearPublished the year the item was published
      * @param status the status of the item 
-     * 
+     *
      * Method to add item the database using entity object and the persistence 
      * framwork
      */
@@ -51,6 +52,7 @@ public class OnlineLibraryControlBean {
         item.setPublisher(publisher);
         item.setYearPublished(yearPublished);
         item.setStatus(status);
+                
         
        
         
@@ -75,21 +77,29 @@ public class OnlineLibraryControlBean {
     
         
         
-        public void ejbCheckIn(Long id)
-        {
-            int checkedIn = entityManager.createNamedQuery("checkIn").setParameter("id", id).executeUpdate();
+        /**
+     * EJB Method to check an item out
+     * @param id the id of the item to check-in
+     * @param patronID the id of the patron we wish to check items in to
+     */
+    public void ejbCheckIn(Long id)        {
+            int checkedIn = entityManager.createNamedQuery("checkIn").setParameter("id", id).setParameter("p", null).setParameter("d", null).executeUpdate();
                 
         }
         
         
         /*
          *@param id the id of the search result item we are looking for  
+         * @param patronID the ID of the patron who we wish to check items out for
          *Method to called the named query to update
          * status to 'checked-out'
          */
-        public void ejbCheckOut(Long id)
+        public void ejbCheckOut(Long id, Long patronID)
         {
-            int checkedOut = entityManager.createNamedQuery("checkOut").setParameter("id", id).executeUpdate();
+            GregorianCalendar calendar = new GregorianCalendar();
+           
+          
+            int checkedOut = entityManager.createNamedQuery("checkOut").setParameter("id", id).setParameter("p", patronID).setParameter("d", null).executeUpdate();
         }
         
 

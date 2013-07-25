@@ -9,7 +9,7 @@
   </security-role-mapping>
   <security-role-mapping>
     <role-name>Worker</role-name>
-    <group-name>Standard</group-name>
+    <group-name>Worker</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>

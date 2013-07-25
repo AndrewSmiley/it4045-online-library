@@ -38,6 +38,7 @@
             <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
             <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
             <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:link outcome="/admin/periodManagement.xhtml" rendered="#{loginManagerBean.isAdmin()}">Item Period Management</h:link></li>
             <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
              </ul>
        

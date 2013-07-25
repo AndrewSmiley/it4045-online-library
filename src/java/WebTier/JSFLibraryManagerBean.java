@@ -105,7 +105,7 @@ public class JSFLibraryManagerBean {
      * Method to check-out an item
      */
     public void checkOut() {
-        getControl().ejbCheckOut(this.resultItem.getId());
+        getControl().ejbCheckOut(this.resultItem.getId(), getPatronID());
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
     }
 

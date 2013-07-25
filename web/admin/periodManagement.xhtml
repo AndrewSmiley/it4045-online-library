@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sign-up A New Member</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
+    </h:head>
+       <h:body>
+           <div  class="container">
+     <div class="header">
+       
+            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
+            <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
+                 <h:form>
+                          <h:outputLabel for="username" value="Username"/> <h:inputText id="username" value="#{loginManagerBean.username}" size="25" /><h:outputLabel for="password" value="password"/> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
+             <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
+             
+                
+         </h:form>   
+         </h:panelGroup>
+            <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
+                <h:outputText value="Hello, #{loginManagerBean.username}"/>
+            </h:panelGroup>
+      
+    </div>
+        
+ 
+         
+         <div class="sidebarleft">
+             
+
+            <ul class="nav">
+                
+            <li><a href="http://localhost:8080/OnlineLibrary/">Home</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a></li>
+            <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
+            <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
+             </ul>
+       
+        </div><br/>
+ 
+        <div class="content">
+            <div class="subcontent">
+                <h3>Update Fees and Allowed Rental Time</h3>
+                 <h:form> 
+                                 <h:outputLabel for="TypesMenu" value="Choose a Type"/>
+                                 <h:selectOneMenu id="TypesMenu" value="#{periodsManagerBean.type}">
+                    <f:selectItem itemLabel="Book" itemValue ="Book"/>
+                    <f:selectItem itemLabel="Audio" itemValue="Audio"/>
+                    <f:selectItem itemLabel="Video" itemValue="Video"/>
+                    
+                </h:selectOneMenu>
+                                
+                                     Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}"/><br/>
+                                     Fee: <h:inputText value="#{periodsManagerBean.lateFee}"/>
+    <h:commandButton value="Update" action="#{periodsManagerBean.updatePeriod()}"/>
+                                 </h:form>
+            </div>
+        </div>
+           </div>
+    </h:body>
+</html>
