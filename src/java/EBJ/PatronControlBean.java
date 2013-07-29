@@ -6,7 +6,9 @@ package EBJ;
 
 import Entities.LogArchive;
 import Entities.Patron;
+import Entities.Periods;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +26,9 @@ import javax.resource.NotSupportedException;
 public class PatronControlBean {
 @PersistenceContext
 private EntityManager manager;
+
+@EJB
+private PeriodControlBean periodControlBean;
 
 
 /**
@@ -109,5 +114,56 @@ public List getPatronActivityReport(Long id)
     Path path = lRoot.get("patronID");
     query.where(builder.equal(path, id));
     return manager.createQuery(query).getResultList();
+}
+
+/**
+ * Method to add late fees to a a patron's account
+ * @param fees 
+ */
+public void addLateFees(Long patronID, String type)
+{
+    /**
+     * Query the DB and get the patron
+     * so now we can add late fees to the patron's account. I.e. if 
+     * they already have fees, we add the new fees on
+     */
+    CriteriaBuilder builder = manager.getCriteriaBuilder();
+    CriteriaQuery<Patron> query = builder.createQuery(Patron.class);
+    Root<Patron> pRoot = query.from(Patron.class);
+    query.select(pRoot);
+    Path path = pRoot.get("id");
+    query.where(builder.equal(path, patronID));
+    Patron patron =  new Patron();
+          patron =  manager.createQuery(query).getSingleResult();
+    
+    
+    Periods period = null;
+     if(type.equalsIgnoreCase("Book"))
+    {
+   period = periodControlBean.getBookPeriods();
+    }else if(type.equalsIgnoreCase("Audio"))
+    {
+       period = periodControlBean.getAudioPeriods();
+    }else if(type.equalsIgnoreCase("Video"))
+    {
+       period = periodControlBean.getVideoPeriods();
+    }
+     else
+    {
+        //we should never get to this point. Just create a blank Periods object
+    period = new Periods();
+    }
+    
+    
+     
+    double fees  = period.getLateFee();
+   double totalFees = patron.getFees() + fees;
+   
+   manager.createNamedQuery("addFees").setParameter("f", totalFees).setParameter("id", patronID).executeUpdate();
+    
+    
+    
+    
+    
 }
 }

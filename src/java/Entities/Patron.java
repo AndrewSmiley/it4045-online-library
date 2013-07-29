@@ -9,11 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author pridemai
+ * 
+ * 
+ * 
  */
+
+@NamedQuery(name="addFees", query="update Patron set fees = :f where id = :id")
+
 @Entity
 public class Patron implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -26,6 +33,7 @@ public class Patron implements Serializable {
     private String city;
     private String stateName;
     private String zip;
+    private double fees;
     
     
             
@@ -146,6 +154,20 @@ public class Patron implements Serializable {
      */
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    /**
+     * @return the fees
+     */
+    public double getFees() {
+        return fees;
+    }
+
+    /**
+     * @param fees the fees to set
+     */
+    public void setFees(double fees) {
+        this.fees = fees;
     }
     
 }

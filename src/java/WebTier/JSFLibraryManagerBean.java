@@ -5,11 +5,14 @@ package WebTier;
 
 import EBJ.ArchiverControlBean;
 import EBJ.OnlineLibraryControlBean;
+import EBJ.PatronControlBean;
 import Entities.LibraryItem;
 import Utilities.DateUtil;
 import Utilities.FileWriterUtil;
 import Utilities.LogFormatter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -43,6 +46,8 @@ public class JSFLibraryManagerBean {
     private OnlineLibraryControlBean control;
     @EJB
     private ArchiverControlBean archiveControl;
+    @EJB
+    private PatronControlBean patronControlBean;
 
     /**
      * Creates a new instance of JSFLibraryManagerBean
@@ -93,10 +98,11 @@ public class JSFLibraryManagerBean {
      */
     public void checkIn() {
 
-        getControl().ejbCheckIn(this.resultItem.getId());
+            
+       getControl().ejbCheckIn(this.resultItem.getId(),this.resultItem.getDueDate(), getPatronID(),  this.resultItem.getFormat());
        
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
-
+        
     }
 
     
@@ -105,7 +111,7 @@ public class JSFLibraryManagerBean {
      * Method to check-out an item
      */
     public void checkOut() {
-        getControl().ejbCheckOut(this.resultItem.getId(), getPatronID());
+        getControl().ejbCheckOut(this.resultItem.getId(), getPatronID(), this.resultItem.getFormat());
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
     }
 
