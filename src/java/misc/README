@@ -1,8 +1,6 @@
 ***To set-up this application to run properly for display purposes***
 
-1. Deploy it. Log in as Librarian 
-username: Librarian 
-password: p@ssw0rd
+1. Run the glassfish admin console and create the new, necessary  users
 
 2.Create periods for "Audio", "Video" and "Book". 
 This is located under the 'Item Period Management' tab in the navigation menu.

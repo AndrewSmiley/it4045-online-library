@@ -10,12 +10,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author pridemai
  */
+/*@NamedQuery(name="getItemByTitle", query="select c from LibraryItem "+
+        " c where c.title like :t "),
+*/
+
+//Named query to update the periods data should go here. 
+
+//@NamedQuery (name="deletePeriod", query="delete from Periods where type like :type")
+
 @Entity
+
 public class Periods implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -25,6 +35,7 @@ public class Periods implements Serializable {
     private String type;
     private int numberOfDays;
     private double lateFee;
+    private Boolean renewable;
     
     
 
@@ -101,6 +112,20 @@ public class Periods implements Serializable {
      */
     public void setLateFee(double lateFee) {
         this.lateFee = lateFee;
+    }
+
+    /**
+     * @return the renewable
+     */
+    public Boolean getRenewable() {
+        return renewable;
+    }
+
+    /**
+     * @param renewable the renewable to set
+     */
+    public void setRenewable(Boolean renewable) {
+        this.renewable = renewable;
     }
     
 }

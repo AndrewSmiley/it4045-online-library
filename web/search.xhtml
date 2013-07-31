@@ -125,6 +125,7 @@ and open the template in the editor.
                    <br/>
                    <h:outputLabel for="patronID" value="Patron ID"/> <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true" />
            <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
+           <h:commandButton value="Renew" action="#{jSFLibraryManagerBean.checkOut()}" rendered="#{jSFLibraryManagerBean.renewable}"/>
            <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" />
                  </h:form>
            </h:panelGroup>

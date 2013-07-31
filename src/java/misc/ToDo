@@ -27,7 +27,10 @@ Finish log portion of the project.
 
 
 ***Assignment 4 Description****
-    In this final iteration, you will add features to enable the librarian and the workers to renew checked out items. You will also enable the system to charge late fees. When an item is overdue, the system should charge a set fee. The library changes the fee structure from time to time and there should be a mechanism for the librarian to set the fee amount and the check out period. In addition, the librarian should be able to indicate whether an item can be renewed or not. 
+    In this final iteration, you will add features to enable the librarian and the workers to renew checked out items. You will also enable the system to charge late fees. 
+When an item is overdue, the system should charge a set fee. 
+The library changes the fee structure from time to time and there should be a mechanism for the librarian to set the fee amount and the check out period. 
+In addition, the librarian should be able to indicate whether an item can be renewed or not. 
 Follow the following to submit your project:
 - Zip the project folder and name your zip file YourLastName_FinalProject
 - Using blackboard assignment section, upload the the zip file

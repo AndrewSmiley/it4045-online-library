@@ -50,7 +50,19 @@ and open the template in the editor.
  
         <div class="content">
             <div class="subcontent">
-                <h3>Update Fees and Allowed Rental Time</h3>
+               
+                <h:form>
+                    <h4>Select to either update existing media types create new</h4>
+                    <h:outputLabel for="createNew" value="Create New Period"/><br/>
+                    <h:selectBooleanCheckbox value="#{periodsManagerBean.createPeriod}" id="createNew"/><br/>
+                    <h:outputLabel for="update" value="Update"/><br/>
+                    <h:selectBooleanCheckbox id="update" value="#{periodsManagerBean.updatePeriod}"/><br/>     
+                
+            
+                    <h:commandButton value="Select"/>
+                </h:form>
+                <h:panelGroup rendered="#{periodsManagerBean.updatePeriod}">
+                     <h3>Update Fees and Allowed Rental Time</h3>
                  <h:form> 
                                  <h:outputLabel for="TypesMenu" value="Choose a Type"/>
                                  <h:selectOneMenu id="TypesMenu" value="#{periodsManagerBean.type}">
@@ -58,13 +70,50 @@ and open the template in the editor.
                     <f:selectItem itemLabel="Audio" itemValue="Audio"/>
                     <f:selectItem itemLabel="Video" itemValue="Video"/>
                     
-                </h:selectOneMenu>
+                                 </h:selectOneMenu><br/>
+                                 <h:outputLabel for="RenewableMenu" value="Renewable?">
+                                     <h:selectBooleanCheckbox value="#{periodsManagerBean.renewable}">
+                                     </h:selectBooleanCheckbox>
+                                     
+                                     
+                                 </h:outputLabel><br/>
                                 
                                      Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}"/><br/>
                                      Fee: <h:inputText value="#{periodsManagerBean.lateFee}"/>
-    <h:commandButton value="Update" action="#{periodsManagerBean.updatePeriod()}"/>
+                                     <br/>
+                                     <!--
+                                     Need to create method to update periods and it goes here!-->
+    <h:commandButton value="Update" action="#{periodsManagerBean.createPeriod()}"/>
                                  </h:form>
+            
+                </h:panelGroup>
+                
+                    <h:panelGroup rendered="#{periodsManagerBean.createPeriod}">
+                         <h3>Create a new period</h3>
+                 <h:form> 
+                                 <h:outputLabel for="TypesMenu" value="Choose a Type"/>
+                                 <h:selectOneMenu id="TypesMenu" value="#{periodsManagerBean.type}">
+                    <f:selectItem itemLabel="Book" itemValue ="Book"/>
+                    <f:selectItem itemLabel="Audio" itemValue="Audio"/>
+                    <f:selectItem itemLabel="Video" itemValue="Video"/>
+                    
+                                 </h:selectOneMenu><br/>
+                                 <h:outputLabel for="RenewableMenu" value="Renewable?">
+                                     <h:selectBooleanCheckbox value="#{periodsManagerBean.renewable}">
+                                     </h:selectBooleanCheckbox>
+                                     
+                                     
+                                 </h:outputLabel><br/>
+                                
+                                     Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}"/><br/>
+                                     Fee: <h:inputText value="#{periodsManagerBean.lateFee}"/>
+                                     <br/>
+    <h:commandButton value="Create" action="#{periodsManagerBean.createPeriod()}"/>
+                                 </h:form>
+            </h:panelGroup>
             </div>
+           
+               
         </div>
            </div>
     </h:body>

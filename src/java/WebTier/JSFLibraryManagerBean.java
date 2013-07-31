@@ -6,6 +6,7 @@ package WebTier;
 import EBJ.ArchiverControlBean;
 import EBJ.OnlineLibraryControlBean;
 import EBJ.PatronControlBean;
+import EBJ.PeriodControlBean;
 import Entities.LibraryItem;
 import Utilities.DateUtil;
 import Utilities.FileWriterUtil;
@@ -41,6 +42,7 @@ public class JSFLibraryManagerBean {
     private Boolean displaySearch;
     //Default error value here
     private String errorMessage = "";
+    private Boolean renewable;
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
     @EJB
     private OnlineLibraryControlBean control;
@@ -48,7 +50,9 @@ public class JSFLibraryManagerBean {
     private ArchiverControlBean archiveControl;
     @EJB
     private PatronControlBean patronControlBean;
-
+    @EJB
+    private PeriodControlBean periodControlBean;
+    
     /**
      * Creates a new instance of JSFLibraryManagerBean
      */
@@ -56,15 +60,9 @@ public class JSFLibraryManagerBean {
         this.displaySearch = false;
     }
 
-    /*
+    /**
      *Method to create a library item 
-     *    private Long id;
-     private String title;
-     private String author;
-     private String format;
-     private String publisher;
-     private String yearPublished;
-     private String status;
+     *   
      */
     public void createLibraryItem() {
         getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
@@ -83,8 +81,8 @@ public class JSFLibraryManagerBean {
          
             setResultItem(getControl().findItem(searchTitle));
             setDisplaySearch(true);
-            this.errorMessage = "";
-        } catch (Exception ex) {
+            setRenewable(this.resultItem.getFormat());
+            this.errorMessage = "";        } catch (Exception ex) {
             setDisplaySearch(false);
             this.setErrorMessage("Error: Item Not Found, Please Check Your Search and Try Again");
 
@@ -115,16 +113,16 @@ public class JSFLibraryManagerBean {
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
     }
 
-    /*
+    /**
      * Method to pull any trailing whitespace from the 
-     * title which has been sumitted 
+     * title which has been submitted 
      */
     public void removeWhiteSpace() {
         this.searchTitle = this.searchTitle.trim();
     }
 
     
-    /*
+    /**
      * Method to display error message if exception is thrown in the search portion of the page. 
      */
     public boolean displaySearchError() {
@@ -135,7 +133,10 @@ public class JSFLibraryManagerBean {
         }
     }
     
-    
+    /**
+     * Method to toggle the search error message
+     * @return true if an error has occurred, false otherwise
+     */
     public boolean toggleErrorMessage()
     {
         if(this.getErrorMessage().isEmpty())
@@ -329,6 +330,20 @@ public class JSFLibraryManagerBean {
      */
     public void setDisplaySearch(Boolean displaySearch) {
         this.displaySearch = displaySearch;
+    }
+
+    /**
+     * @return the renewable
+     */
+    public Boolean getRenewable() {
+        return renewable;
+    }
+
+    /**
+     * @param renewable the renewable to set
+     */
+    public void setRenewable(String type) {
+        this.renewable = periodControlBean.isRenewable(type);
     }
 }
 

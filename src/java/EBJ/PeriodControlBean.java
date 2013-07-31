@@ -25,21 +25,34 @@ private EntityManager entityManager;
     
 
 /**
- * Method to update the amount of time allowed for check-out and the late fee for a particular item
+ * Method to create a new period reference for an item type
  * @param type The type of item to update the information of
  * @param days  The number of days an item format is able to be checked-out for
  * @param lateFee The lateFee for a particular item format
+ * @param renewable Whether the item is renewable or not
  */
-public void updatePeriod(String type, int days, double lateFee)
+public void createPeriod(String type, int days, double lateFee, Boolean renewable)
 {
        Periods period = new Periods();
        period.setType(type);
        period.setNumberOfDays(days);
        period.setLateFee(lateFee);
-       
+       period.setRenewable(renewable);
        entityManager.persist(period);
     
 }
+ /**
+ * Method to update the period reference for a particular item type
+ * @param type The type of item to update the information of
+ * @param days  The number of days an item format is able to be checked-out for
+ * @param lateFee The lateFee for a particular item format
+ * @param renewable Whether the item is renewable or not
+ */
+public void updatePeriod(String type, int days, double lateFees, Boolean renewable)   
+{
+   // entityManager.createNamedQuery("updatePeriod").setParameter("f", lateFees).setParameter("n", days).setParameter("r", renewable).setParameter("t", type).executeUpdate();
+}
+
 
 /**
  * Method to get the fees and check-out period for Books
@@ -83,5 +96,16 @@ public Periods getVideoPeriods()
         query.where(builder.equal(root.get("type"), "Video"));
         return entityManager.createQuery(query).getSingleResult();
 
+}
+
+public Boolean isRenewable(String type)
+{
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Periods> query = builder.createQuery(Periods.class);
+        Root<Periods> root = query.from(Periods.class);
+        query.select(root);
+        query.where(builder.equal(root.get("type"), type));
+        Periods periodType = entityManager.createQuery(query).getSingleResult();
+        return periodType.getRenewable();
 }
 }
