@@ -7,6 +7,7 @@ package EBJ;
 import Entities.LogArchive;
 import Entities.Periods;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,6 +40,10 @@ public void createPeriod(String type, int days, double lateFee, Boolean renewabl
        period.setLateFee(lateFee);
        period.setRenewable(renewable);
        entityManager.persist(period);
+          //redirect back to the current page
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getApplication().getNavigationHandler().handleNavigation(context, null, "/admin/periodManagement.xhtml");
+
     
 }
  /**
@@ -50,7 +55,11 @@ public void createPeriod(String type, int days, double lateFee, Boolean renewabl
  */
 public void updatePeriod(String type, int days, double lateFees, Boolean renewable)   
 {
-   // entityManager.createNamedQuery("updatePeriod").setParameter("f", lateFees).setParameter("n", days).setParameter("r", renewable).setParameter("t", type).executeUpdate();
+    entityManager.createNamedQuery("updatePeriod").setParameter("f", lateFees).setParameter("n", days).setParameter("r", renewable).setParameter("t", type).executeUpdate();
+       //redirect back to the current page
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getApplication().getNavigationHandler().handleNavigation(context, null, "/admin/periodManagement.xhtml");
+
 }
 
 

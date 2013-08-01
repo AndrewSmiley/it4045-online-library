@@ -4,12 +4,12 @@
  */
 package Entities;
 
-import EBJ.PeriodControlBean;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
@@ -21,8 +21,7 @@ import javax.persistence.NamedQuery;
 */
 
 //Named query to update the periods data should go here. 
-
-//@NamedQuery (name="deletePeriod", query="delete from Periods where type like :type")
+@NamedQuery (name="updatePeriod", query="UPDATE Periods c set c.numberOfDays = :n, c.renewable = :r, c.lateFee=:f WHERE c.type=:t")
 
 @Entity
 
