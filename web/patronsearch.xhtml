@@ -96,6 +96,13 @@ and open the template in the editor.
        <h:dataTable value="#{patronManagerBean.patronList}" var="patron">
            <h:column>
                <f:facet name="header">
+                   <h:outputText value="ID"/>
+               </f:facet>
+               <h:outputText value="#{patron.id}"/>
+           </h:column>
+               
+           <h:column>
+               <f:facet name="header">
                    <h:outputText value="FirstName"/>
                        
                </f:facet>
@@ -137,7 +144,8 @@ and open the template in the editor.
                    <h:outputText value="Action"/>
                </f:facet>
                <h:form>
-                   <h:commandButton value="View Report" action="#{patronManagerBean.displayReport()}"/>
+                   
+                   <h:commandButton value="View Report" action="#{patronManagerBean.getPatronActivityReport(patron.id)}"/>
                </h:form>
        </h:column>
        </h:dataTable> 

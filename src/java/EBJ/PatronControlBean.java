@@ -76,7 +76,8 @@ public List searchByFirstName(String fname)
 }
 
 /**
- * Stub method to pull method 
+ * Method to search by Last name for a patron
+ * @return List A list of patrons found
  */
 public List searchByLastName(String lName)
 {
@@ -91,6 +92,25 @@ public List searchByLastName(String lName)
     
    
 }
+
+/**
+ * Method to get the activities of a patron
+ * @param id The patron ID we wish to search for
+ * @return A list of activities
+ */
+public List getPatronActivities(Long id)
+{
+    CriteriaBuilder criteriaBuilder =  manager.getCriteriaBuilder();
+    CriteriaQuery<LogArchive> pQuery =  criteriaBuilder.createQuery(LogArchive.class);
+    Root<LogArchive> archive = pQuery.from(LogArchive.class);
+    pQuery.select(archive);
+    //create a path object? 
+    Path path = archive.get("id");
+    pQuery.where(criteriaBuilder.equal(path, id));
+    return manager.createQuery(pQuery).getResultList();
+    
+}
+
 
 /**
  * Method to Search for patron by their unique patron ID

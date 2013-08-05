@@ -130,8 +130,6 @@ public class OnlineLibraryControlBean {
         calendar.add(Calendar.DATE, periods.getNumberOfDays());
         int checkedOut = entityManager.createNamedQuery("checkOut").setParameter("id", id).setParameter("p", patronID).setParameter("d", calendar).executeUpdate();
         
-        //redirect back to the current page
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getApplication().getNavigationHandler().handleNavigation(context, null, "/search.xhtml");
+   
     }
 }

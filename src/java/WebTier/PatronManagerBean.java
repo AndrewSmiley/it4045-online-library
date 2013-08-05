@@ -64,6 +64,7 @@ public class PatronManagerBean {
         public void patronFirstNameSearch()
         {
          setPatronList(getPatronControl().searchByFirstName(getfName()));
+         
          if(getPatronList().isEmpty())
          {
              this.viewReport = false;
@@ -92,7 +93,10 @@ public class PatronManagerBean {
              this.displayError = false;
          }
         }
-        
+        public void testMethod(Long id)
+        {
+            
+        }
         /**
          * Method to search for patron using their unique ID
          */
@@ -110,6 +114,11 @@ public class PatronManagerBean {
          }
          
          }
+        
+        public void getPatronActivityReport(Long id)
+        {
+            setPatronActivities(getPatronControl().getPatronActivityReport(id));
+        }
         
         /**
          * Method to display the patron information. 
