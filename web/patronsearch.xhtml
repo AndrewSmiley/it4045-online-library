@@ -13,7 +13,7 @@ and open the template in the editor.
     </h:head>
     <body>
            <div  class="container">
-       <div class="header">
+      <div class="header">
        
             <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
             <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
@@ -51,13 +51,45 @@ and open the template in the editor.
  
         <div class="content">
             <h3>Find a Patron and View Reports</h3>
+            <h4>Please Select A Search Criteria</h4>
+            <h:form>
+                <h:selectOneListbox value="#{patronManagerBean.searchAction}">
+                    <f:selectItem itemLabel="Last Name" itemValue="LastName"/>
+                    <f:selectItem itemLabel="First Name" itemValue="FirstName"/>
+                    <f:selectItem itemLabel="ID" itemValue="ID"/>
+                </h:selectOneListbox>
+                <h:commandButton value="Choose" action="#{patronManagerBean.searchChoice()}"/>
+            </h:form>
+            <br/>
+            
+            <!--Begin search by ID!-->
+            <h:panelGroup rendered="#{patronManagerBean.searchID}">
        <p> Search By ID</p>
         <h:form>
-            <h:inputText id="userSearch" value="#{patronManagerBean.id}" required="true"  />
+            <h:inputText id="searchID" value="#{patronManagerBean.id}" required="true"  />
             <h:commandButton value="Search" 
                              action="#{patronManagerBean.patronIDSearch()}"/>
          </h:form> 
-        
+       
+       <!-- Begin search by first name !-->
+            </h:panelGroup>
+            <h:panelGroup rendered="#{patronManagerBean.searchFirstName}">
+                <p>Search By First Name</p>
+                <h:form>
+                    <h:inputText id="searchFirstName" value="#{patronManagerBean.fName}" required="true"  />
+            <h:commandButton value="Search" 
+                             action="#{patronManagerBean.patronFirstNameSearch()}"/>
+            </h:form>
+            </h:panelGroup>
+        <!--Begin search by last name!-->
+         <h:panelGroup rendered="#{patronManagerBean.searchLastName}">
+             <p>Search By Last Name</p>
+             <h:form>
+                <h:inputText id="searchLastName" value="#{patronManagerBean.lName}" required="true"  />
+            <h:commandButton value="Search" 
+                             action="#{patronManagerBean.patronLastNameSearch()}"/>
+            </h:form>
+            </h:panelGroup>
         
        <h:outputText id="errormessage" rendered="#{patronManagerBean.displayError}" value="No Users Found"/>
        <h:panelGroup rendered="#{patronManagerBean.viewReport}">

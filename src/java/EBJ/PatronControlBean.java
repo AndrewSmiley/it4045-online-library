@@ -78,8 +78,17 @@ public List searchByFirstName(String fname)
 /**
  * Stub method to pull method 
  */
-public void  searchByLastName()
+public List searchByLastName(String lName)
 {
+    CriteriaBuilder criteriaBuilder =  manager.getCriteriaBuilder();
+    CriteriaQuery<Patron> pQuery =  criteriaBuilder.createQuery(Patron.class);
+    Root<Patron> patron = pQuery.from(Patron.class);
+    pQuery.select(patron);
+    //create a path object? 
+    Path path = patron.get("lName");
+    pQuery.where(criteriaBuilder.like(path, lName));
+    return manager.createQuery(pQuery).getResultList();
+    
    
 }
 

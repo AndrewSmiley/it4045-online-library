@@ -31,6 +31,11 @@ public class PatronManagerBean {
     private List<LogArchive> patronActivities;
     private Boolean viewReport;
     private Boolean displayError;
+    private Boolean searchLastName;
+    private Boolean searchFirstName;
+    private Boolean searchID; 
+    private String  searchAction;
+            
     
     @EJB
     private PatronControlBean patronControl;
@@ -58,9 +63,35 @@ public class PatronManagerBean {
         */
         public void patronFirstNameSearch()
         {
-         setPatronList(getPatronControl().searchByFirstName(this.fName));
+         setPatronList(getPatronControl().searchByFirstName(getfName()));
+         if(getPatronList().isEmpty())
+         {
+             this.viewReport = false;
+             this.displayError = true;
+         }else
+         {
+             this.viewReport = true;
+             this.displayError = false;
+         }
+         
         }
         
+        /**Method to search for a patron by last name
+         * 
+         */
+        public void patronLastNameSearch()
+        {
+            setPatronList(getPatronControl().searchByLastName(getlName()));
+            if(getPatronList().isEmpty())
+         {
+             this.viewReport = false;
+             this.displayError = true;
+         }else
+         {
+             this.viewReport = true;
+             this.displayError = false;
+         }
+        }
         
         /**
          * Method to search for patron using their unique ID
@@ -80,13 +111,47 @@ public class PatronManagerBean {
          
          }
         
-        
+        /**
+         * Method to display the patron information. 
+         */
         public void displayReport()
         {
             setPatronActivities(getPatronControl().getPatronActivityReport(getId()));
         
            
         }
+        
+        
+        /**
+         * Method to determine how the patrons will be searched. 
+         */
+        public void searchChoice()
+        {
+            if(this.searchAction.equalsIgnoreCase("LastName"))
+                    {
+                     setSearchFirstName(false);
+                     setSearchLastName(true);
+                     setSearchID(false);
+                     
+                    }else if(this.searchAction.equalsIgnoreCase("FirstName"))
+                            {
+                     setSearchFirstName(true);
+                     setSearchLastName(false);
+                     setSearchID(false); 
+                            }
+                    else if(this.searchAction.equalsIgnoreCase("ID"))
+                    {
+                     setSearchFirstName(false);
+                     setSearchLastName(false);
+                     setSearchID(true);
+                    }else
+                    {
+                        
+                    }
+                            
+        }
+        
+        
         
         /**
      * @return the fName
@@ -254,5 +319,61 @@ public class PatronManagerBean {
      */
     public void setDisplayError(Boolean displayError) {
         this.displayError = displayError;
+    }
+
+    /**
+     * @return the searchLastName
+     */
+    public Boolean getSearchLastName() {
+        return searchLastName;
+    }
+
+    /**
+     * @param searchLastName the searchLastName to set
+     */
+    public void setSearchLastName(Boolean searchLastName) {
+        this.searchLastName = searchLastName;
+    }
+
+    /**
+     * @return the searchFirstName
+     */
+    public Boolean getSearchFirstName() {
+        return searchFirstName;
+    }
+
+    /**
+     * @param searchFirstName the searchFirstName to set
+     */
+    public void setSearchFirstName(Boolean searchFirstName) {
+        this.searchFirstName = searchFirstName;
+    }
+
+    /**
+     * @return the searchID
+     */
+    public Boolean getSearchID() {
+        return searchID;
+    }
+
+    /**
+     * @param searchID the searchID to set
+     */
+    public void setSearchID(Boolean searchID) {
+        this.searchID = searchID;
+    }
+
+    /**
+     * @return the searchAction
+     */
+    public String getSearchAction() {
+        return searchAction;
+    }
+
+    /**
+     * @param searchAction the searchAction to set
+     */
+    public void setSearchAction(String searchAction) {
+        this.searchAction = searchAction;
     }
 }
