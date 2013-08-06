@@ -5,14 +5,20 @@
 package EBJ;
 
 import Entities.LibraryItem;
+import Entities.Patron;
 import Entities.Periods;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -70,9 +76,19 @@ public class OnlineLibraryControlBean {
      * @param title the title of the book to search for
      * @return LibraryItem
      */
-    public LibraryItem findItem(String title) {
-        LibraryItem temp = (LibraryItem) entityManager.createNamedQuery("getItemByTitle").setParameter("t", title).getSingleResult();
-        return temp;
+    public List findItem(String title) {
+       /* LibraryItem temp = (LibraryItem) entityManager.createNamedQuery("getItemByTitle").setParameter("t", title).getSingleResult();
+        return temp;*/
+        
+    CriteriaBuilder criteriaBuilder =  entityManager.getCriteriaBuilder();
+    CriteriaQuery<LibraryItem> pQuery =  criteriaBuilder.createQuery(LibraryItem.class);
+    Root<LibraryItem> item = pQuery.from(LibraryItem.class);
+    pQuery.select(item);
+    //create a path object? 
+    Path path = item.get("title");
+    pQuery.where(criteriaBuilder.like(path, title));
+    return entityManager.createQuery(pQuery).getResultList();
+    
     }
 
     /**

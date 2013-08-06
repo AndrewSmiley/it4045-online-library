@@ -14,6 +14,7 @@ import Utilities.LogFormatter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -36,6 +37,7 @@ public class JSFLibraryManagerBean {
     private String status;
     private String searchTitle;
     private LibraryItem resultItem;
+    private List<LibraryItem> resultItems;
     private LogFormatter logFormatter = new LogFormatter();
     private DateUtil dateUtil = new DateUtil();
     private Long patronID;
@@ -43,6 +45,7 @@ public class JSFLibraryManagerBean {
     //Default error value here
     private String errorMessage = "";
     private Boolean renewable;
+    private Boolean multipleItems;
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
     @EJB
     private OnlineLibraryControlBean control;
@@ -77,27 +80,29 @@ public class JSFLibraryManagerBean {
     public void findItem() {
         //Trim the whitespace off of the String prior to executing the search
         this.removeWhiteSpace();
-        try {
+       
          
-            setResultItem(getControl().findItem(searchTitle));
+            setResultItems(getControl().findItem(searchTitle));
             setDisplaySearch(true);
-            setRenewable(this.resultItem.getFormat());
-            this.errorMessage = "";        } catch (Exception ex) {
+           // setRenewable(this.resultItem.getFormat());
+            this.errorMessage = "";        
+            if(resultItems.isEmpty())
+            {
             setDisplaySearch(false);
             this.setErrorMessage("Error: Item Not Found, Please Check Your Search and Try Again");
+            }
 
-
-        }
+        
     }
 
    
     /**
      * Method to update the status of an item from "checked-out" to "available;
      */
-    public void checkIn() {
+    public void checkIn(Long id,GregorianCalendar duedate, String format) {
 
             
-       getControl().ejbCheckIn(this.resultItem.getId(),this.resultItem.getDueDate(), getPatronID(),  this.resultItem.getFormat());
+       getControl().ejbCheckIn(id,duedate, getPatronID(),  format);
        
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
         
@@ -108,9 +113,9 @@ public class JSFLibraryManagerBean {
     /**
      * Method to check-out an item
      */
-    public void checkOut() {
-        getControl().ejbCheckOut(this.resultItem.getId(), getPatronID(), this.resultItem.getFormat());
-        getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
+    public void checkOut(Long id, String title, String format) {
+        getControl().ejbCheckOut(id, getPatronID(), format);
+        getArchiveControl().logNewActivity(logFormatter.logItemCheckedOut(title), dateUtil.getTodaysDate(), getPatronID());
     }
 
     /**
@@ -344,6 +349,34 @@ public class JSFLibraryManagerBean {
      */
     public void setRenewable(String type) {
         this.renewable = periodControlBean.isRenewable(type);
+    }
+
+    /**
+     * @return the resultItems
+     */
+    public List<LibraryItem> getResultItems() {
+        return resultItems;
+    }
+
+    /**
+     * @param resultItems the resultItems to set
+     */
+    public void setResultItems(List<LibraryItem> resultItems) {
+        this.resultItems = resultItems;
+    }
+
+    /**
+     * @return the multipleItems
+     */
+    public Boolean getMultipleItems() {
+        return multipleItems;
+    }
+
+    /**
+     * @param multipleItems the multipleItems to set
+     */
+    public void setMultipleItems(Boolean multipleItems) {
+        this.multipleItems = multipleItems;
     }
 }
 

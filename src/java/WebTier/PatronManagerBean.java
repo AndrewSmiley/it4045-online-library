@@ -93,10 +93,7 @@ public class PatronManagerBean {
              this.displayError = false;
          }
         }
-        public void testMethod(Long id)
-        {
-            
-        }
+ 
         /**
          * Method to search for patron using their unique ID
          */

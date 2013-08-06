@@ -71,7 +71,7 @@ and open the template in the editor.
                       
        
         <h:form/>
-        <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItem}">
+        <h:dataTable var="item" value="#{jSFLibraryManagerBean.resultItems}">
                     rendered="#{jSFLibraryManagerBean.displaySearch}"/>
         
             <h:column>
@@ -116,19 +116,23 @@ and open the template in the editor.
                 </f:facet>
                 <h:outputText value="#{item.status}"/>
             </h:column>
-            
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Action"/>
+                        </f:facet>
+                           <h:form>
+           <h:outputLabel for="patronID" value="Patron ID"/> <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true" />
+           <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn(item.id, item.dueDate, item.format)}"/>
+           <h:commandButton value="Renew" action="#{jSFLibraryManagerBean.checkOut(item.id, item.title, item.format)}"/>
+           <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut(item.id, item.title, item.format)}" />
+                 </h:form>
+                    </h:column>
         </h:dataTable>
          </h:panelGroup>
         <h:outputText id="searchError" rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
        
         <h:panelGroup id="itemAction" rendered="#{jSFLibraryManagerBean.displaySearch}">
-               <h:form>
-                   <br/>
-                   <h:outputLabel for="patronID" value="Patron ID"/> <h:inputText value="#{jSFLibraryManagerBean.patronID}" required="true" />
-           <h:commandButton value="Check-In" action="#{jSFLibraryManagerBean.checkIn()}"/>
-           <h:commandButton value="Renew" action="#{jSFLibraryManagerBean.checkOut()}" rendered="#{jSFLibraryManagerBean.renewable}"/>
-           <h:commandButton value="Check-Out" action="#{jSFLibraryManagerBean.checkOut()}" />
-                 </h:form>
+            
            </h:panelGroup>
         </div>
            </div>
