@@ -6,92 +6,16 @@
         Purpose of the stylesheet follows.
 */
 
-/*root { 
-    display: block;
-}
 
 
-body{
-    color: #EDEDED;
+
+
+th, tr{padding-left: 12px;
+    padding-right: 12px;
+    }
     
-}
-
- label, p{
-    color: #151024
-    
-}
-
-#header{
-    background-color: #7ec0c0;
-    vertical-align: central;
-    padding-left: 1500px;
-    padding-top: 100px;
-    left: 0px;
-    top:0px;
-    
-    position: fixed;
-    float:top;
-    
-    
-}
-
-#welcome{
-    font-family: serif;
-    font-size: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-   
-    padding-left: 10px;
-    
-   
-}
-
-#content
-{
-   width: 20%;
-    margin: 0 auto;
-    
-    
-}
-
-#results
-{
-    width: 40%;
-    margin: 0 auto;
-}
-#login{
-    float:right;
-}
-
-
-h3{
-    vertical-align: central
-}
-
-#nav
-{
-    background-color: #666666;
-    padding-bottom: 50px;
-    padding-top: 50px;
-    padding-left: 20px;
-    overflow: hidden;
-        width: 200px;
-          left: 0px;
-  top: 62px;
-  width: 300px;
-  height: 200px;
-        position:absolute;
-}
-
-
-#searchError{background-color: #eb0b29}
-
-
-*/
-
-
-
+    th{background-color: #4E5869}
+ 
 
 body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
