@@ -32,23 +32,12 @@ public class LoginControlBean {
      * @return String   Returns a string that contains a message describing whether the login succeeded or not
      * @throws ServletException 
      */
-    public Boolean login(String username, String password) throws ServletException {
+    public void login(String username, String password) throws ServletException {
         
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        try
-        {
             request.login(username, password);
-            
-            return true;
-            
-        }catch(ServletException ex)
-        {
-           
-           ex.getStackTrace();
-            return false;
-  
-        }
+       
         
         
         

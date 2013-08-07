@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+      
+    
+    <h:head>
+        <title>Welcome To The Online Library Tool</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
+    </h:head>
+       <h:body>
+           <div  class="container">
+   
+       <div class="header">
+       
+            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
+      
+    </div>
+        
+ 
+         
+         <div class="sidebarleft">
+         </div><br/>
+ 
+        <div class="content">
+            <h3 id="errormessage">Login Failed</h3>
+       <h:outputText value="Please Log In" rendered="#{loginManagerBean.isNotLoggedIn()}"/>
+    <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
+                      <h:form>
+                          <h:inputText value="#{loginManagerBean.username}" size="25" /> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
+             <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
+                
+                
+                      </h:form> <h:outputText value="Login Failed" rendered="#{loginManagerBean.loginFailureMessage}"/>    
+         </h:panelGroup>
+            <h:form><h:commandLink value="back" action="#{jSFLibraryManagerBean.returnToSearch()}"/>
+        </h:form>
+            
+        
+        </div>
+           </div>
+        
+    </h:body>
+    
+</html>
+

@@ -62,10 +62,16 @@ private LoginControlBean control;
      */
     public void login()
     {
-    try {
-        setLoginFailureMessage(getControl().login(this.getUsername(), this.getPassword()));
+   try{
+      
+      getControl().login(this.getUsername(), this.getPassword());
+       FacesContext context = FacesContext.getCurrentInstance();
+      context.getApplication().getNavigationHandler().handleNavigation(context, null, "/index.xhtml");
+      
     } catch (ServletException ex) {
-        Logger.getLogger(LoginManagerBean.class.getName()).log(Level.SEVERE, null, ex);
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/login_failed_error.xhtml");
+         
         
     }
     }
@@ -74,8 +80,20 @@ private LoginControlBean control;
      * Method to logout of the application
      */
     public void logout()
-    {
+    {   
+        if(getControl().isAdmin())
+        {
          getControl().logout();
+           FacesContext context = FacesContext.getCurrentInstance();
+             context.getApplication().getNavigationHandler().handleNavigation(context, null, "/index.xhtml");
+        }
+        else
+        {
+            getControl().logout();
+        }
+     
+     {
+     }
     }
     
     /**

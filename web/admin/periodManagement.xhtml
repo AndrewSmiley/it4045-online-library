@@ -79,8 +79,8 @@ and open the template in the editor.
                                      
                                  </h:outputLabel><br/>
                                 
-                                     Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}"/><br/>
-                                     Fee: <h:inputText value="#{periodsManagerBean.lateFee}"/>
+                                 Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}" required="true" /><br/>
+                                     Fee: <h:inputText value="#{periodsManagerBean.lateFee}" required="true"/>
                                      <br/>
                                      <!--
                                      Need to create method to update periods and it goes here!-->
@@ -106,7 +106,7 @@ and open the template in the editor.
                                      
                                  </h:outputLabel><br/>
                                 
-                                     Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}"/><br/>
+                                     Number Of Days For Checkout: <h:inputText value="#{periodsManagerBean.numberOfDays}" required="true"/><br/>
                                      Fee: <h:inputText value="#{periodsManagerBean.lateFee}"/>
                                      <br/>
     <h:commandButton value="Create" action="#{periodsManagerBean.createPeriod()}"/>
