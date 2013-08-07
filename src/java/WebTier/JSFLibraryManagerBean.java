@@ -42,8 +42,6 @@ public class JSFLibraryManagerBean {
     private DateUtil dateUtil = new DateUtil();
     private Long patronID;
     private Boolean displaySearch;
-    //Default error value here
-    private String errorMessage = "";
     private Boolean renewable;
     private Boolean multipleItems;
     private FileWriterUtil fileWriter = new FileWriterUtil(); 
@@ -85,11 +83,11 @@ public class JSFLibraryManagerBean {
             setResultItems(getControl().findItem(searchTitle));
             setDisplaySearch(true);
            // setRenewable(this.resultItem.getFormat());
-            this.errorMessage = "";        
+          
             if(resultItems.isEmpty())
             {
-            setDisplaySearch(false);
-            this.setErrorMessage("Error: Item Not Found, Please Check Your Search and Try Again");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/not_found_error.xhtml");
             }
 
         
@@ -99,13 +97,16 @@ public class JSFLibraryManagerBean {
     /**
      * Method to update the status of an item from "checked-out" to "available;
      */
-    public void checkIn(Long id,GregorianCalendar duedate, String format) {
+    public void checkIn(Long id, GregorianCalendar duedate, String format) {
 
-            
+      try{      
        getControl().ejbCheckIn(id,duedate, getPatronID(),  format);
        
         getArchiveControl().logNewActivity(logFormatter.logItemCheckedIn(this.resultItem.getTitle()), dateUtil.getTodaysDate(), getPatronID());
-        
+      }catch(Exception ex){
+           FacesContext context = FacesContext.getCurrentInstance();
+        context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/cannot_check_in_error.xhtml");
+      }
     }
 
     
@@ -128,33 +129,25 @@ public class JSFLibraryManagerBean {
 
     
     /**
-     * Method to display error message if exception is thrown in the search portion of the page. 
+     * Method to redirect a user back to the search page
      */
-    public boolean displaySearchError() {
-        if (this.getErrorMessage().isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    
-    /**
-     * Method to toggle the search error message
-     * @return true if an error has occurred, false otherwise
-     */
-    public boolean toggleErrorMessage()
+    public void returnToSearch()
     {
-        if(this.getErrorMessage().isEmpty())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-            
+          FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/search.xhtml");
+         
     }
 
+
+    /**
+     * Method to display the entire catalog
+     */
+    
+    public void browseCatalog()
+    {
+        setResultItems(getControl().browseCatalog());
+    }
+    
     /**
      * @return the title
      */
@@ -281,20 +274,7 @@ public class JSFLibraryManagerBean {
         this.control = control;
     }
 
-    /**
-     * @return the errorMessage
-     */
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    /**
-     * @param errorMessage the errorMessage to set
-     */
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
+  
     /**
      * @return the archiveControl
      */

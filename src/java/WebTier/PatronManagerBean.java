@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PatronManagerBean {
     private List<Patron> patronList;
     private List<LogArchive> patronActivities;
     private Boolean viewReport;
-    private Boolean displayError;
+   
     private Boolean searchLastName;
     private Boolean searchFirstName;
     private Boolean searchID; 
@@ -45,7 +46,7 @@ public class PatronManagerBean {
      */
     public PatronManagerBean() {
         viewReport = false;
-        displayError = false;
+       
         
     }
 
@@ -67,12 +68,11 @@ public class PatronManagerBean {
          
          if(getPatronList().isEmpty())
          {
-             this.viewReport = false;
-             this.displayError = true;
+           redirectPatronNotFound();
          }else
          {
              this.viewReport = true;
-             this.displayError = false;
+             
          }
          
         }
@@ -85,12 +85,11 @@ public class PatronManagerBean {
             setPatronList(getPatronControl().searchByLastName(getlName()));
             if(getPatronList().isEmpty())
          {
-             this.viewReport = false;
-             this.displayError = true;
+            redirectPatronNotFound();
          }else
          {
              this.viewReport = true;
-             this.displayError = false;
+          
          }
         }
  
@@ -102,12 +101,11 @@ public class PatronManagerBean {
          setPatronList(getPatronControl().searchByID(getId()));
          if(getPatronList().isEmpty())
          {
-             this.viewReport = false;
-             this.displayError = true;
+            redirectPatronNotFound();
          }else
          {
              this.viewReport = true;
-             this.displayError = false;
+             
          }
          
          }
@@ -157,6 +155,26 @@ public class PatronManagerBean {
                             
         }
         
+        /**
+         * Method to redirect a user back to the patron management page
+         */
+        public void redirectPatronManagement()
+        {
+              FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/patronsearch.xhtml");
+         
+        }
+        
+        
+        /**
+         * Method to redirect user to the patron not found error page. 
+         */
+        public static void redirectPatronNotFound()
+        {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/patron_not_found_error.xhtml");
+         
+        }
         
         
         /**
@@ -312,21 +330,7 @@ public class PatronManagerBean {
     public void setPatronActivities(List<LogArchive> patronActivities) {
         this.patronActivities = patronActivities;
     }
-
-    /**
-     * @return the displayError
-     */
-    public Boolean getDisplayError() {
-        return displayError;
-    }
-
-    /**
-     * @param displayError the displayError to set
-     */
-    public void setDisplayError(Boolean displayError) {
-        this.displayError = displayError;
-    }
-
+    
     /**
      * @return the searchLastName
      */

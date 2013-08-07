@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
         
 @NamedQuery(name="checkOut", query="update LibraryItem set status = 'Checked-Out', patronID=:p, dueDate=:d where id = :id")
 
+
 })
 
 

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">  
+      
+    
+    <h:head>
+        <title>Welcome To The Online Library Tool</title>
+        <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
+    </h:head>
+       <h:body>
+           <div  class="container">
+   
+       <div class="header">
+       
+            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
+         
+            <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
+                <h:outputText value="Hello, #{loginManagerBean.username}"/>
+            </h:panelGroup>
+      
+
+      
+    </div>
+        
+ 
+         
+         <div class="sidebarleft">
+             
+
+            <ul class="nav">
+                
+                <li><h:link outcome="/index.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Home</h:link></li>
+            <li><h:link outcome="/search.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Search Catalog</h:link></li>
+            <li><h:link outcome="/patronsearch.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Patron Management</h:link></li>
+            <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
+            <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:link outcome="/admin/periodManagement.xhtml" rendered="#{loginManagerBean.isAdmin()}">Item Period Management</h:link></li>
+            <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
+             </ul>
+       
+        </div><br/>
+ 
+        <div class="content">
+            <h3 id="errormessage">An Error Has Occurred</h3>
+            <p>This item cannot be checked in. It may already be checked in. </p>
+        
+        </div>
+           </div>
+        
+    </h:body>
+    
+</html>
+

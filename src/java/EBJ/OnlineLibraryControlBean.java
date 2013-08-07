@@ -92,6 +92,21 @@ public class OnlineLibraryControlBean {
     }
 
     /**
+     * Method to retrieve all items from the library catalog
+     * @return 
+     */
+    public List browseCatalog()
+    {
+    CriteriaBuilder criteriaBuilder =  entityManager.getCriteriaBuilder();
+    CriteriaQuery<LibraryItem> pQuery =  criteriaBuilder.createQuery(LibraryItem.class);
+    Root<LibraryItem> item = pQuery.from(LibraryItem.class);
+    pQuery.select(item);
+    return entityManager.createQuery(pQuery).getResultList();
+    //   return entityManager.createNamedQuery("viewAll").getResultList();
+        
+    }
+    
+    /**
      * EJB Method to check an item out and reload the page for the user
      *
      * @param id the id of the item to check-in
@@ -103,13 +118,18 @@ public class OnlineLibraryControlBean {
         GregorianCalendar calendar = new GregorianCalendar();
 
         //determine if today's date is after the due date
-
+        try
+        {
         if (dueDate.before(calendar)) {
             patronControlBean.addLateFees(patronID, type);
         }
 
         int checkedIn = entityManager.createNamedQuery("checkIn").setParameter("id", id).setParameter("p", null).setParameter("d", null).executeUpdate();
-        
+        }catch(NullPointerException e)
+        {
+             FacesContext context = FacesContext.getCurrentInstance();
+        context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/cannot_check_in_error.xhtml");
+        }
         
         //redirect back to the current page
         FacesContext context = FacesContext.getCurrentInstance();
