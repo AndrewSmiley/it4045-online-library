@@ -55,8 +55,13 @@ public class PatronManagerBean {
      */
         public void createNewPatron()
         {
+            try{
             getPatronControl().addNewPatron(getfName(), getlName(), getCity(), getAddress(), getStateName(), getZip());
-            
+            redirectPatronCreated();
+            }catch(Exception ex)
+            {
+              
+            }
         }
     
        /**
@@ -156,6 +161,16 @@ public class PatronManagerBean {
         }
         
         /**
+         * Method to redirect a user back to the create a patron page
+         */
+        
+        public void redirectCreatePatron()
+        {
+              FacesContext context = FacesContext.getCurrentInstance();
+                context.getApplication().getNavigationHandler().handleNavigation(context, null, "/admin/signup.xhtml");
+         
+        }
+        /**
          * Method to redirect a user back to the patron management page
          */
         public void redirectPatronManagement()
@@ -176,6 +191,13 @@ public class PatronManagerBean {
          
         }
         
+        
+        public static void redirectPatronCreated()
+        {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/misc/patron_created.xhtml");
+         
+        }
         
         /**
      * @return the fName

@@ -16,9 +16,8 @@
            <div  class="container">
    
        <div class="header">
-       
-            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
-         
+           <h3 id="main_logo">Online Library</h3>
+        
             <h:panelGroup rendered="#{loginManagerBean.isLoggedIn()}">
                 <h:outputText value="Hello, #{loginManagerBean.username}"/>
             </h:panelGroup>
@@ -33,16 +32,16 @@
              
 
             <ul class="nav">
-                
-                <li><h:link outcome="/index.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Home</h:link></li>
-            <li><h:link outcome="/search.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Search Catalog</h:link></li>
-            <li><h:link outcome="/patronsearch.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Patron Management</h:link></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/">Home</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a></li>
             <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
             <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
-            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
             <li><h:link outcome="/admin/periodManagement.xhtml" rendered="#{loginManagerBean.isAdmin()}">Item Period Management</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}">Activity Log</h:link></li>
+            <li><h:link outcome="/browse_catalog.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Browse Catalog</h:link></li>
             <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
-             </ul>
+            </ul>
        
         </div><br/>
  
@@ -105,11 +104,7 @@
                     </h:column>
         </h:dataTable>
     
-        <h:outputText id="searchError" rendered="#{jSFLibraryManagerBean.displaySearchError()}" value="#{jSFLibraryManagerBean.errorMessage}"/>
-       
-        <h:panelGroup id="itemAction" rendered="#{jSFLibraryManagerBean.displaySearch}">
             
-           </h:panelGroup>
             
             
         </div></div></h:body></html>

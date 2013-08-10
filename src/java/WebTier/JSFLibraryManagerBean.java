@@ -66,10 +66,17 @@ public class JSFLibraryManagerBean {
      *   
      */
     public void createLibraryItem() {
-        getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());
-        
-        getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate(), getPatronID());
-        
+        try{
+            getControl().createLibraryItem(getTitle(), getAuthor(), getPublisher(), getPublicationYear(), getFormat(), getStatus());  
+            getArchiveControl().logNewActivity(logFormatter.logItemCreated(getTitle(), getFormat(),getStatus()), dateUtil.getTodaysDate(), getPatronID());
+            itemAddedSuccessRedirect();
+        }catch(Exception ex)
+        {
+             FacesContext context = FacesContext.getCurrentInstance();
+             context.getApplication().getNavigationHandler().handleNavigation(context, null, "/e/generic_error.xhtml");
+         
+            
+        }
     }
 
     /**
@@ -137,7 +144,24 @@ public class JSFLibraryManagerBean {
             context.getApplication().getNavigationHandler().handleNavigation(context, null, "/search.xhtml");
          
     }
-
+    
+    /**
+     * static method to redirect user to the item created success page
+     */ 
+    public static void itemAddedSuccessRedirect()
+    {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/misc/item_created.xhtml");
+         
+    }
+    
+    
+    public void returnToCreateItem()
+    {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/admin/AddItems.xhtml");
+         
+    }
 
     /**
      * Method to display the entire catalog

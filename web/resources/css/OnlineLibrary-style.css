@@ -30,6 +30,8 @@ body {
     
 }
 
+#main_logo{position: relative; margin-left: 450px; font-size: 50px; padding-top: 20px;}
+
 /* ~~ Element/tag selectors ~~ */
 ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
 	padding: 0;
@@ -91,6 +93,8 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 }
 .content {
 	padding: 10px 0;
+        padding-left: 50px;
+        padding-right: 202px;
 	width: 60%;
 	float: left;
         background-color: #fff;

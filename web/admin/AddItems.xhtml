@@ -10,13 +10,14 @@ and open the template in the editor.
      <h:head>
         <title>Add a new item</title>
         <h:outputStylesheet library="css" name="OnlineLibrary-style.css"/>
+        <h:form><h:commandLink onclick="#{loginManagerBean.redirectNotLoggedIn()}"/></h:form>
+        
     </h:head>
        <body>
            <div  class="container">
    <div class="header">
-       
-            <img src="" alt="Online Library" name="Insert_logo" width="20%" height="90" id="Insert_logo" style="background-color: #8090AB; display:block;" /> 
-            <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
+           <h3 id="main_logo">Online Library</h3>
+               <h:panelGroup rendered="#{loginManagerBean.isNotLoggedIn()}">
                  <h:form>
                           <h:outputLabel for="username" value="Username"/> <h:inputText id="username" value="#{loginManagerBean.username}" size="25" /><h:outputLabel for="password" value="password"/> <h:inputSecret value="#{loginManagerBean.password}" size="25"/>
              <h:commandButton value="Login" action="#{loginManagerBean.login()}"/>
@@ -35,16 +36,16 @@ and open the template in the editor.
              
 
             <ul class="nav">
-                
-            <li><a href="http://localhost:8080/OnlineLibrary/">Home</a></li>
+            <li><a href="http://localhost:8080/OnlineLibrary/" >Home</a></li>
             <li><a href="http://localhost:8080/OnlineLibrary/search.xhtml">Search Catalog</a></li>
             <li><a href="http://localhost:8080/OnlineLibrary/patronsearch.xhtml">Patron Management</a></li>
             <li><h:link outcome="/admin/AddItems.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Items</h:link></li>
             <li><h:link outcome="/admin/signup.xhtml" rendered="#{loginManagerBean.isAdmin()}">Add New Member</h:link></li>
-             <li><h:link outcome="/admin/periodManagement.xhtml" rendered="#{loginManagerBean.isAdmin()}">Item Period Management</h:link></li>
-            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}"  >Activity Log</h:link></li>
+            <li><h:link outcome="/admin/periodManagement.xhtml" rendered="#{loginManagerBean.isAdmin()}">Item Period Management</h:link></li>
+            <li><h:link outcome="/admin/logs.xhtml" rendered="#{loginManagerBean.isAdmin()}">Activity Log</h:link></li>
+            <li><h:link outcome="/browse_catalog.xhtml" rendered="#{loginManagerBean.isLoggedIn()}">Browse Catalog</h:link></li>
             <li><h:form><h:commandLink value="Logout" action="#{loginManagerBean.logout()}" rendered="#{not empty request.remoteUser}" /></h:form></li>
-             </ul>
+            </ul>
        
         </div><br/>
  
@@ -52,27 +53,27 @@ and open the template in the editor.
           
             <h3>Add a New Item To The Catalog</h3>
              <h:form>
-            <h:outputLabel for="title" rendered="true" value="Title: "/>
-            
+            <h:outputLabel for="title" rendered="true" value="Title"/><br/>
+
             <h:inputText id="title" required="true" 
-                         value="#{jSFLibraryManagerBean.title}" /><br/><br/>
+                         value="#{jSFLibraryManagerBean.title}" size="50" /><br/><br/>
             
-            <h:outputLabel for="author" rendered="true" value="Author: "/>
+            <h:outputLabel for="author" rendered="true" value="Author"/><br/>
             
             <h:inputText id="author" required="true" 
-                         value="#{jSFLibraryManagerBean.author}"/><br/><br/>
+                         value="#{jSFLibraryManagerBean.author}" size="50"/><br/><br/>
             
-            <h:outputLabel for="publisher" rendered="true" value="Publisher: "/>
+            <h:outputLabel for="publisher" rendered="true" value="Publisher"/><br/>
             
-            <h:inputText id="publisher" required="true" value="#{jSFLibraryManagerBean.publisher}"/><br/><br/>
+            <h:inputText id="publisher" required="true" value="#{jSFLibraryManagerBean.publisher}" size="50"/><br/><br/>
                                
-            <h:outputLabel for="publicationYear" rendered="true" value="Year Published: "/>
+            <h:outputLabel for="publicationYear" rendered="true" value="Year Published"/><br/>
             
             <h:inputText id="publicationYear" required="true" 
-                         value="#{jSFLibraryManagerBean.publicationYear}"/><br/><br/>
+                         value="#{jSFLibraryManagerBean.publicationYear}" size="50"/><br/><br/>
                               
             
-            <h:outputLabel for="media" rendered="true" value="Type of Media: "/>
+            <h:outputLabel for="media" rendered="true" value="Type of Media"/><br/>
             <br/>   
             <h:selectOneMenu id="media" required="true" 
                              value="#{jSFLibraryManagerBean.format}">

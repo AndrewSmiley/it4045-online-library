@@ -48,6 +48,15 @@ private LoginControlBean control;
         
     }
     
+    
+    public void redirectNotLoggedIn()
+    {
+        if(!this.isLoggedIn())
+        {
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.getApplication().getNavigationHandler().handleNavigation(context, null, "/error/login_failed_error.xhtml");
+        }
+    }
       /**
      * Method to determine if a user is logged into the application
      * @return Boolean Return true if the user is logged in
