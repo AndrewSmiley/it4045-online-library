@@ -5,7 +5,7 @@
 package Utilities;
 
 /**
- *
+ * POJO class to format activity log strings
  * @author pridemai
  */
 public class LogFormatter {

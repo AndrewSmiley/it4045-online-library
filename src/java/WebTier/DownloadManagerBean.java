@@ -17,7 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * @deprecated 
+ * Managed bean to handle web tier log file downloading
  * @author Smiley
  */
 @ManagedBean
@@ -39,7 +40,7 @@ public class DownloadManagerBean {
     
        
       
-      /*
+      /**
        * Method to download the daily log to your local machine
        */
        public void downLoad() throws IOException {  

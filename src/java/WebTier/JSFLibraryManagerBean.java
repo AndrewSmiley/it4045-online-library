@@ -21,7 +21,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
- *
+ * Web tier managed bean to handle library inventory management mechanisms
+
  * @author Andrew
  */
 @ManagedBean

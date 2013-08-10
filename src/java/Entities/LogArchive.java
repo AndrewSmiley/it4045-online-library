@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ *POJO object model to utilize for Log management with the database
  * @author pridemai
  * 
  * */

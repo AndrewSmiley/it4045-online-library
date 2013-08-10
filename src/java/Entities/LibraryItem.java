@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 
+ * POJO object model to utilize for Library inventory management with the database
  * @author Andrew
  */
 @Entity

@@ -15,7 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *@deprecated 
+ * POJO utility class to create a local log file of activities
  * @author Smiley
  */
 public class FileWriterUtil {
@@ -23,7 +24,7 @@ public class FileWriterUtil {
     private static final int DEFAULT_BUFFER_SIZE = 10240;  
     
     
-    /*
+    /**
      * Method to log an item being added to the daily log
      * @param title the title of the item added
      * @param format the format of the item
@@ -67,7 +68,7 @@ public class FileWriterUtil {
     
 
 
-/*
+/**
      * Method to log the the changes status of item(s)
      * @param title the title of the item 
      * @param format the format of the item
@@ -104,7 +105,10 @@ try {
 		}
         
     }
-
+/**
+ * Method to allow a user to download a log file
+ * @throws IOException 
+ */
 public void createNewFileDownload() throws IOException
 {
     DateUtil dateUtil = new DateUtil();

@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 /**
- *
+ * Managed bean to handle period management calls . 
  * @author pridemai
  */
 @ManagedBean

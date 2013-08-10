@@ -19,7 +19,8 @@ import javax.persistence.criteria.Root;
 import javax.resource.NotSupportedException;
 
 /**
- *
+ * EBJ Class to handle data tier communication and logic related to
+ * patron management
  * @author pridemai
  */
 @Stateless
@@ -32,6 +33,7 @@ private PeriodControlBean periodControlBean;
 
 
 /**
+ * Method to add a patron to the database
  *@param fname The first name of the patron
  * @param lname The last name of the patron
  * @param address The address of the patron
@@ -77,6 +79,7 @@ public List searchByFirstName(String fname)
 
 /**
  * Method to search by Last name for a patron
+ * @param lName The last name of the patron we wish to search for
  * @return List A list of patrons found
  */
 public List searchByLastName(String lName)
@@ -95,7 +98,7 @@ public List searchByLastName(String lName)
 
 /**
  * Method to get the activities of a patron
- * @param id The patron ID we wish to search for
+ * @param id The patron ID we wish to find the activities of
  * @return A list of activities
  */
 public List getPatronActivities(Long id)
@@ -115,6 +118,7 @@ public List getPatronActivities(Long id)
 /**
  * Method to Search for patron by their unique patron ID
  * @param id the ID to search for patrons by
+ * @return List List of patrons that match that ID
  */
 
 public List searchByID(Long id)
@@ -131,7 +135,7 @@ public List searchByID(Long id)
 /**
  * Method to get the activity report of the Patron 
  * @param id The patron id for which we want to get the activity report of
- * @return 
+ * @return List A list of patron activities
  */
 public List getPatronActivityReport(Long id)
 {
@@ -147,7 +151,8 @@ public List getPatronActivityReport(Long id)
 
 /**
  * Method to add late fees to a a patron's account
- * @param fees 
+ * @param patronID The patron ID we wish to add fees to 
+ * @param type  The item type the patron is being charged fees on. This comes from the period management portion
  */
 public void addLateFees(Long patronID, String type)
 {

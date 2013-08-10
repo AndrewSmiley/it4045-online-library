@@ -21,7 +21,7 @@ import javax.persistence.metamodel.EntityType;
 
 
 /**
- *
+ * Class to communicate with our data tier. Handles Data communication with related to logs
  * @author Smiley
  */
 @Stateless
@@ -40,7 +40,7 @@ public class ArchiverControlBean {
 
      */
     
-    /*
+    /**
      * Method to log a new activity to the Database of logs. 
      * @param content- the content of the log being pushed to the database
      * @param entryDate - The date in which the 
@@ -58,7 +58,7 @@ public class ArchiverControlBean {
     
     /**
      * Method to get the logs from the DB
-     * @param date The date of which we wish to search for logs. Default is today, format is YYY-mm-dd
+     * 
      * @return A list of the results. 
      */
     

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * EJB to handle login mechanism business logic. 
  * @author Smiley
  */
 @Stateless

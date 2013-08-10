@@ -21,7 +21,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ *EBJ Class to handle data tier communication related to management of library
+ * inventory 
  * @author Andrew
  */
 @Stateless
@@ -39,6 +40,7 @@ public class OnlineLibraryControlBean {
     private EntityManager entityManager;
 
     /**
+     * 
      * @param title the title of item
      * @param author the author of the item
      * @param format the format of the item
@@ -93,7 +95,7 @@ public class OnlineLibraryControlBean {
 
     /**
      * Method to retrieve all items from the library catalog
-     * @return 
+     * @return  List of LibraryItems of all items in the database
      */
     public List browseCatalog()
     {

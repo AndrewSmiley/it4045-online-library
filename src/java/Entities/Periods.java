@@ -13,7 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
+ *POJO object model to utilize for Library inventory management with the database
  * @author pridemai
  */
 /*@NamedQuery(name="getItemByTitle", query="select c from LibraryItem "+

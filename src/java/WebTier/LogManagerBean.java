@@ -40,8 +40,9 @@ public class LogManagerBean {
        
        
        /**
-        * Method to grab the logs back from the database
-        * 
+        * Method to grab the logs back from the database using the corresponding 
+        * EJB class 
+        * @return A list of log archive objects 
         */
        
        public List<LogArchive> retrieveLogs()

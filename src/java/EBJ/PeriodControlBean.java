@@ -15,7 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * EJB Class to handle period management business logic
  * @author pridemai
  */
 @Stateless
@@ -107,6 +107,11 @@ public Periods getVideoPeriods()
 
 }
 
+/**
+ * Method to determine if an object type is renewable or not
+ * @param type
+ * @return Boolean whether that type of object is renewable or not
+ */
 public Boolean isRenewable(String type)
 {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();

@@ -14,7 +14,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
- *
+ * Managed bean to handle login related calls
  * @author Smiley
  */
 @ManagedBean
@@ -183,6 +183,7 @@ public class PatronManagerBean {
         
         /**
          * Method to redirect user to the patron not found error page. 
+         * 
          */
         public static void redirectPatronNotFound()
         {
